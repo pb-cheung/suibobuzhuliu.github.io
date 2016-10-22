@@ -1,0 +1,124 @@
+<!DOCTYPE html><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><title>前端模块化 | 随啵不逐流</title><link rel="stylesheet" type="text/css" href="/css/normalize.css"><link rel="stylesheet" type="text/css" href="/css/highlight.css"><link rel="stylesheet" type="text/css" href="/css/very-simple.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="alternate" type="application/atom+xml" href="/atom.xml"></head><body><!-- include the sidebar--><!-- include ./includes/sidebar.jade--><!-- Blog title and subtitle--><header><div class="container header"><a id="logo" href="/." class="title">随啵不逐流</a><span class="subtitle">路过了青春我们还拥有什么</span><label id="toggle-menu" for="menu" onclick><i class="fa fa-bars"></i></label></div></header><!-- use checkbox hack for toggle nav-bar on small screens--><input id="menu" type="checkbox"><!-- Navigation Links--><nav id="nav"><div class="container"><a href="/" class="sidebar-nav-item active">Home</a><a href="/archives" class="sidebar-nav-item">Archives</a><a href="/about/" class="sidebar-nav-item">About</a></div></nav><div id="header-margin-bar"></div><!-- gallery that comes before the header--><div class="wrapper"><div class="container post-header"><h1>前端模块化</h1></div></div><div class="wrapper"><div class="container meta"><div class="post-time">2016-05-26</div><div class="post-tags"><a class="post-tag-link" href="/tags/Babel/">Babel</a>/<a class="post-tag-link" href="/tags/Browserify/">Browserify</a>/<a class="post-tag-link" href="/tags/UMD/">UMD</a>/<a class="post-tag-link" href="/tags/前端/">前端</a>/<a class="post-tag-link" href="/tags/模块化/">模块化</a></div></div></div><article><div class="container post"><p>名字就是这么朴素，然而可能要写好多东西。</p>
+<p><strong>拥抱模块化，拥抱ES6。</strong> </p>
+<a id="more"></a>
+<h2 id="前端模块化历史"><a href="#前端模块化历史" class="headerlink" title="前端模块化历史"></a>前端模块化历史</h2><p>要想较为深入的理解CommonJS、AMD、CMD各种规范和require.js、sea.js等模块加载器的作用、原理和适用场景，扒一扒前端模块化的历史进程还是很有必要的。</p>
+<p>感谢玉伯等人开发了seajs，更准确来说感谢他们为首营造的这个社区。这里集中出现了好多讨论前端模块化等问题的issues。</p>
+<p>09-10年期间，<strong>CommonJS</strong>最初叫ServerJS，CommonJS社区推出了<strong>Modules/1.0规范</strong>，并在Node.js等环境下取得了很不错的实践。社区人员想更进一步把ServerJS的成功经验推广到浏览器端（很自然的想法），并且改了社区名字为CommonJS。</p>
+<p>在讨论能适用于浏览器端的下一代标准的时候，他们产生了分歧，并由此产生了三大流派：</p>
+<ol>
+<li><p>Modules/1.x流派。这派观点是1.x规范已经够用，一直到浏览器端就好。要做的事新增Modules/Transport规范，在浏览器上运行前，先通过转换工具转换为符合Transport规范的代码（grunt、gulp的Transport插件等就是此作用）。主流代表是服务器端开发人员。他们的成果是componentjs，但已停止维护并推荐webpack、jspn、<strong>browserify</strong>；还有面向ES6新规范的es6-module-transpiler，该项目已经被合到<strong>Babel</strong>中了。</p>
+</li>
+<li><p>Modules/Async流派。这个流派觉得浏览器有自身的特征，不应该直接用Modules/1.x规范。这个观点下的典型代表是AMD规范及其实现<strong>RequireJS</strong>。</p>
+</li>
+<li><p>Modules/2.0流派。这个流派觉得浏览器有自身特征，不应该直接使用Modules/1.x规范，但应该尽可能与Modules/1.x规范保持一致。这个分支产生了两份规范，Modules/2.0-draft和Modules/Wrappings，后者是CMD规范的前身。玉伯后来借鉴RequireJS和Modules/2.0规范搞出了<strong>seajs</strong>，遵循CMD规范。  </p>
+</li>
+</ol>
+<h2 id="Babel"><a href="#Babel" class="headerlink" title="Babel"></a>Babel</h2><pre><code>         Babel
+ES6        --&gt;        CommonJS
+</code></pre><p>JavaScript最新规范ECMAScript 6已经推出，此版本增添了很多新特性和语法。这其中许多特性例如类、箭头函数等目前并没有被很好的兼容支持。Babel能让我们按照新规范写的包含很多新特性的代码在更多的环境中很好的运行。</p>
+<p>Babel是一个功能丰富的通用编译器。它可以把用最新标准编写的Javascript代码向下编译成可以在今天随处可用的版本。这一过程叫做“源码到源码”编译，也被称为转换编译。它的用途不止于此，还能编译React所用的JSX语法，用于静态类型检查的流式语法（Flow Synatx）。</p>
+<p>Babel中用来将ES6(es2015)转译成ES5的预设（preset）是“preset-es2015”，这个是官方的预设。这个预设包含了一系列的插件。在官网的<a href="http://babeljs.io/docs/plugins/preset-es2015/" target="_blank" rel="external">页面</a>可以看到下图所示的插件列表就是es2015预设包括的。</p>
+<p><img src="http://7xo5yo.com1.z0.glb.clouddn.com/github/babel_es2015.png" alt="插件列表"></p>
+<p>图中圈出的插件是“transform-es2015-modules-commonjs”，这个是模块化相关的插件，其作用是转换ES2015模块转换成CommonJS。</p>
+<p>所以，<strong>Babel默认是将ES6规范的代码转化成CommonJS规范的代码</strong>。</p>
+<p>es2015-modules-amd将ES6代码转换为AMD规范的代码，通过RequireJS加载。</p>
+<p>es2015-modules-systemjs将ES6代码转换为SystemJS（Universal dynamic module loader），注意这个并不是系统原生JS的意思，也是一个模块加载器，我差点理解错了。</p>
+<p>es2015-modules-umd插件可以将ES6代码转换为UMD规范的代码。</p>
+<h2 id="CommonJS"><a href="#CommonJS" class="headerlink" title="CommonJS"></a>CommonJS</h2><h2 id="AMD"><a href="#AMD" class="headerlink" title="AMD"></a>AMD</h2><h2 id="UMD"><a href="#UMD" class="headerlink" title="UMD"></a>UMD</h2><p>UMD(University Module Definition)的目的是兼容服务器和浏览器客户端等环境平台设计的。umd模式会把模块代码包裹进一个立即调用的函数表达式（Immediately Invoked Function Expression，IIFE）中。</p>
+<p>UMD先判断是否支持Node.js（CommonJS）的模块（export是否存在），存在则使用Node.js模块模式。</p>
+<p>如果不是再判断是否支持AMD（define是否存在），存在则使用AMD的方式在家模块。</p>
+<pre><code>(function (window, factory) {
+    if (typeof exports === &apos;object&apos;) {
+       module.exports = factory();
+    } else if (typeof define === &apos;function&apos; &amp;&amp; define.amd) {
+       define(factory);
+    } else {
+       window.eventUtil = factory();
+    }
+})(this, function () {
+//module ...
+});
+</code></pre><h4 id="举个栗子"><a href="#举个栗子" class="headerlink" title="举个栗子"></a>举个栗子</h4><p>jQuery从1.7版本开始使用UMD模式，即支持RequireJS。下面是jQuery-2.2.4.js源码相关的抽取：</p>
+<pre><code>(function( global, factory ) {
+       if ( typeof module === &quot;object&quot; &amp;&amp; typeof module.exports === &quot;object&quot; ) {
+    // For CommonJS and CommonJS-like environments where a proper `window`
+    // is present, execute the factory and get jQuery.
+    // For environments that do not have a `window` with a `document`
+    // (such as Node.js), expose a factory as module.exports.
+    // This accentuates the need for the creation of a real `window`.
+    // e.g. var jQuery = require(&quot;jquery&quot;)(window);
+    // See ticket #14549 for more info.
+       module.exports = global.document ?
+        factory( global, true ) :
+        function( w ) {
+            if ( !w.document ) {
+                throw new Error( &quot;jQuery requires a window with a document&quot; );
+            }
+            return factory( w );
+        };
+    } else {
+        factory( global );
+    }    
+    // Pass this if window is not defined yet
+}(typeof window !== &quot;undefined&quot; ? window : this, function( window, noGlobal ) {
+    //...
+
+// Register as a named AMD module, since jQuery can be concatenated with other
+// files that may use define, but not via a proper concatenation script that
+// understands anonymous AMD modules. A named AMD is safest and most robust
+// way to register. Lowercase jquery is used because AMD module names are
+// derived from file names, and jQuery is normally delivered in a lowercase
+// file name. Do this after creating the global so that if an AMD module wants
+// to call noConflict to hide this version of jQuery, it will work.
+
+    if ( typeof define === &quot;function&quot; &amp;&amp; define.amd ) {
+       define( &quot;jquery&quot;, [], function() {
+        return jQuery;
+       } );
+    }
+    //...
+       return jQuery;
+}));
+</code></pre><h2 id="Browserify-js"><a href="#Browserify-js" class="headerlink" title="Browserify.js"></a>Browserify.js</h2><pre><code>            Browserify
+CommonJS        --&gt;            原生JS（可在浏览器中运行）
+</code></pre><p>浏览器中不像Node.js中那样，没有定义“require”方法。</p>
+<p>Browserify通过打包你所有的依赖的方式，让你能够在浏览器环境中使用‘require(“modules”)’这样的模块化语句。</p>
+<p>Browserify的功能是依赖分析和打包器。</p>
+<p>具体的原理，<strong>举个栗子</strong></p>
+<p>两个有依赖关系的模块：</p>
+<pre><code>// foo.js
+module.exports = function(x) {
+      console.log(x);
+};
+
+// main.js
+var foo = require(&quot;./foo&quot;);
+foo(&quot;Hi&quot;);
+</code></pre><p>browserify 将所有模块放入一个数组中，id属性是模块变好，source属性是模块源码，deps属性是模块的依赖。建立索引</p>
+<pre><code>[
+      {
+        &quot;id&quot;:1,
+        &quot;source&quot;:&quot;module.exports = function(x) {\n  console.log(x);\n};&quot;,
+        &quot;deps&quot;:{}
+      },
+      {
+        &quot;id&quot;:2,
+        &quot;source&quot;:&quot;var foo = require(\&quot;./foo\&quot;);\nfoo(\&quot;Hi\&quot;);&quot;,
+        &quot;deps&quot;:{&quot;./foo&quot;:1},
+        &quot;entry&quot;:true
+      }
+]
+</code></pre><p>main模块加载foo模块，deps属性指定./foo对应1号模块。执行的时候，浏览器遇到require(‘./foo’)语句，就自动执行1号模块的souce属性，并将执行后的module.exports属性值输出。    </p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.zhihu.com/question/27917401" target="_blank" rel="external">ECMAScript 6 的模块相比CommonJS的有什么优点？| Edward Chu的回答</a></p>
+<p><a href="https://www.zhihu.com/question/30628854" target="_blank" rel="external">require/seajs和webpack/browserify各自的有时以及如何取舍？|寸志的回答</a></p>
+<p><a href="https://github.com/seajs/seajs/issues/588" target="_blank" rel="external">前端模块化开发那点历史</a></p>
+<p><a href="https://github.com/amdjs/amdjs-api/wiki/AMD-(%E4%B8%AD%E6%96%87%E7%89%88" target="_blank" rel="external">AMD规范</a>)</p>
+<p><a href="http://wiki.commonjs.org/wiki/CommonJS" target="_blank" rel="external">CommonJS wiki</a></p>
+<p><a href="https://github.com/thejameskyle/babel-handbook/blob/master/translations/zh-Hans/user-handbook.md" target="_blank" rel="external">babel-handbook</a></p>
+<p><a href="http://babeljs.io/docs/plugins/" target="_blank" rel="external">BABEL Plugins</a></p>
+<p><a href="https://github.com/umdjs/umd" target="_blank" rel="external">UMD规范</a></p>
+<p><a href="http://www.ruanyifeng.com/blog/2015/05/commonjs-in-browser.html" target="_blank" rel="external">浏览器加载CommonJS模块的原理与实现|阮一峰</a></p>
+</div><!-- comment system--><div class="container"><hr></div></article><footer id="footer"><div class="container"><div class="bar"><div class="social"><a href="https://github.com/http://suibobuzhuliu.github.io" target="_blank"><i class="fa fa-github"></i></a><a href="/atom.xml" target="_blank"><i class="fa fa-rss"></i></a></div><div class="footer">© 2016 <a href="/" rel="nofollow">波仔</a>. Powered by <a rel="nofollow" target="_blank" href="https://hexo.io">Hexo</a>. Theme <a target="_blank" href="https://github.com/lotabout/very-simple">very-simple</a>.</div></div></div></footer><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.css"><script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script><script src="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.pack.js"></script><script>$(document).ready(function() {
+    $(".fancybox").fancybox();
+});
+</script></body></html>

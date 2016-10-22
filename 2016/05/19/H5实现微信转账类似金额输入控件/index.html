@@ -1,0 +1,49 @@
+<!DOCTYPE html><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><title>H5实现微信转账类似金额输入控件 | 随啵不逐流</title><link rel="stylesheet" type="text/css" href="/css/normalize.css"><link rel="stylesheet" type="text/css" href="/css/highlight.css"><link rel="stylesheet" type="text/css" href="/css/very-simple.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="alternate" type="application/atom+xml" href="/atom.xml"></head><body><!-- include the sidebar--><!-- include ./includes/sidebar.jade--><!-- Blog title and subtitle--><header><div class="container header"><a id="logo" href="/." class="title">随啵不逐流</a><span class="subtitle">路过了青春我们还拥有什么</span><label id="toggle-menu" for="menu" onclick><i class="fa fa-bars"></i></label></div></header><!-- use checkbox hack for toggle nav-bar on small screens--><input id="menu" type="checkbox"><!-- Navigation Links--><nav id="nav"><div class="container"><a href="/" class="sidebar-nav-item active">Home</a><a href="/archives" class="sidebar-nav-item">Archives</a><a href="/about/" class="sidebar-nav-item">About</a></div></nav><div id="header-margin-bar"></div><!-- gallery that comes before the header--><div class="wrapper"><div class="container post-header"><h1>H5实现微信转账类似金额输入控件</h1></div></div><div class="wrapper"><div class="container meta"><div class="post-time">2016-05-19</div><div class="post-tags"><a class="post-tag-link" href="/tags/input/">input</a>/<a class="post-tag-link" href="/tags/type-number/">type=number</a>/<a class="post-tag-link" href="/tags/金额/">金额</a></div></div></div><article><div class="container post"><p>H5实现一个类似微信转账的金额输入控件，看似简单，实际上也不难，但是想做好有巨多的坑。此篇也可以叫input控件type问题研究。<br><a id="more"></a></p>
+<h2 id="H5金额输入控件"><a href="#H5金额输入控件" class="headerlink" title="H5金额输入控件"></a>H5金额输入控件</h2><p>H5实现一个类似微信转账的金额输入控件，看似简单，实际上也不难，但是想做好有巨多的坑。此篇也可以叫input控件type=number问题。</p>
+<h3 id="DOM"><a href="#DOM" class="headerlink" title="DOM"></a>DOM</h3><pre><code>&lt;input class=&quot;&quot; name=&quot;&quot; type=&quot;number&quot; autofocus=&quot;autofocus&quot; id=&quot;amount&quot; /&gt;
+</code></pre><p>type=”number”，此属性可在用户点击input控件时呼起软键盘对应的数字键盘。</p>
+<p>autofocus=”autofocus”，此属性可在用户进入页面时自动获得焦点，iPhone上无效。</p>
+<h3 id="校验"><a href="#校验" class="headerlink" title="校验"></a>校验</h3><p>必须的校验还是要有的。</p>
+<pre><code>check: function(value){
+        var _this = this;
+        if(/^\d+(\.\d{1,2})?$/g.test(value)){
+            value = Number(value) * Number(100);
+            if(value == 0 || value &gt; Number(999999)){
+                return false;
+            }
+            _this.Param.monunt = value;
+            return true;
+        }else{
+            return false;
+        }
+    }
+</code></pre><h3 id="交互优化"><a href="#交互优化" class="headerlink" title="交互优化"></a>交互优化</h3><p>要优化得到点大致可以分为两类：</p>
+<pre><code>1. 非法字符输入
+2. 基于已输入内容的非法输入
+</code></pre><p>第一种很好理解就是，不能输入数字和小数点之外的字符（汉字英文字母其他符号）</p>
+<p>第二种意思是，用户输入的字符合法，输入框中的内容不是合法货币数字。可能包括的情况：1.小数点开头，2. 出现两个小数点， 3. 小数位数大于2 </p>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>第一种问题的优化思路是，在键盘按下时，判断每次输入是否合法。</p>
+<p>具体有两种方法：</p>
+<pre><code>1. 在input控件上绑定keypress事件，按键时触发，然后通过事件对象获取keyCode，通过keyCode判断输入内容。
+
+2. 安卓webvie和chrome中，input元素有个validity属性对象，这个属性对象中有很多值可以判断输入内容是否合法。valid为true，badInput为false输入为合法，反之不合法，下图是安卓页面中alert出该对象内容。
+</code></pre><p><img src="http://7xo5yo.com1.z0.glb.clouddn.com/github/validity.png" alt="validity"></p>
+<p>第二种问题优化，不同于第一种，它是基于已经输入的一坨和目前刚输入的判断是否合法。</p>
+<p>绑定keyup事件，keyup触发时输入内容已经到input中，你可以通过js获取到。如果input控件的type是text，当输入不合法的字符时，通过js获取其内容，去掉末尾字符，然后再将处理后的结果插入到input控件中。</p>
+<h3 id="兼容性"><a href="#兼容性" class="headerlink" title="兼容性"></a>兼容性</h3><p><strong>安卓不支持keypress事件、keyCode</strong></p>
+<p>安卓不支持keypress事件，可用keydown替代，但是keyCode问题解决不了👇</p>
+<p>安卓中所有软键盘事件对象的keyCode、which属性都返回 0，获取不到当前被点击的键。</p>
+<p><a href="https://code.google.com/p/android/issues/detail?id=68284" target="_blank" rel="external">WebView keypress event not working in 4.4.2</a></p>
+<p><img src="http://7xo5yo.com1.z0.glb.clouddn.com/github/keyCode0.png" alt="stackOverflow"></p>
+<p>可悲的是似乎没人开始着手修复这个bug……╮(╯▽╰)╭</p>
+<p><strong>iOS Safari 及 OSX Safari对keypress、keyCode支持良好。</strong></p>
+<p>DOM规范规定，type=”number”的input只能接受浮点数，各个端的具体表现是，pc浏览器不能输入不合法的字符，移动端浏览器包括Safari和Android webview输入非法字符都能成功，但是通过js获取它们的内容会是空字符串””。</p>
+<p>iPhone Safari中validity为空对象。</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="http://stackoverflow.com/questions/8942678/keyboardevent-in-chrome-keycode-is-0" target="_blank" rel="external">KeyboardEvent in Chrome, keyCode is 0</a></p>
+<p><a href="http://www.qcyoung.com/2015/09/01/type-number%E9%9D%9E%E6%B3%95%E5%80%BC%E7%9A%84%E4%B8%80%E4%BA%9B%E6%8E%A2%E7%A9%B6%E5%8F%8A%E6%8B%93%E5%B1%95/" target="_blank" rel="external">type=number非法值的一些探究及拓展</a></p>
+<p><a href="http://stackoverflow.com/questions/16634471/how-can-i-get-the-html5-validity-state-of-an-input-text-box" target="_blank" rel="external">How can I get the HTML5 validity state of an input text box</a></p>
+<p><a href="http://yunzhu.iteye.com/blog/1345398" target="_blank" rel="external">限制文本框输入</a></p>
+</div><!-- comment system--><div class="container"><hr></div></article><footer id="footer"><div class="container"><div class="bar"><div class="social"><a href="https://github.com/http://suibobuzhuliu.github.io" target="_blank"><i class="fa fa-github"></i></a><a href="/atom.xml" target="_blank"><i class="fa fa-rss"></i></a></div><div class="footer">© 2016 <a href="/" rel="nofollow">波仔</a>. Powered by <a rel="nofollow" target="_blank" href="https://hexo.io">Hexo</a>. Theme <a target="_blank" href="https://github.com/lotabout/very-simple">very-simple</a>.</div></div></div></footer><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.css"><script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script><script src="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.pack.js"></script><script>$(document).ready(function() {
+    $(".fancybox").fancybox();
+});
+</script></body></html>

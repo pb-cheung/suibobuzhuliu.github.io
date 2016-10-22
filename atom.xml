@@ -1,0 +1,1136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>随啵不逐流</title>
+  <subtitle>路过了青春我们还拥有什么</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://suibobuzhuliu.github.io/"/>
+  <updated>2016-10-22T07:55:09.000Z</updated>
+  <id>http://suibobuzhuliu.github.io/</id>
+  
+  <author>
+    <name>波仔</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Vim使用技巧</title>
+    <link href="http://suibobuzhuliu.github.io/2016/06/08/Vim%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7/"/>
+    <id>http://suibobuzhuliu.github.io/2016/06/08/Vim使用技巧/</id>
+    <published>2016-06-08T13:23:30.000Z</published>
+    <updated>2016-10-22T07:55:09.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>说来Vim不算陌生，大一折腾过Linux，vim必然是绕不过去要了解和使用的，后来上了前端船，用了sublime等文本编辑器，工作中用WebStorm这样的大型强大的IDE，好久没有摸过Vim了，生疏了，现在学C++，看了些教程，记录下Vim最常用到的一些功能。<br><a id="more"></a></p>
+<h1 id="vim-使用技巧"><a href="#vim-使用技巧" class="headerlink" title="vim 使用技巧"></a>vim 使用技巧</h1><h3 id="三种模式："><a href="#三种模式：" class="headerlink" title="三种模式："></a>三种模式：</h3><ul>
+<li>命令模式（command mode）</li>
+<li>插入模式（Inset mode）</li>
+<li><p>底线命令行模式（Last line mode）</p>
+</li>
+<li><p>vim/mvim启动后是在命令模式。</p>
+</li>
+<li>按字母键“i”进入Insert模式，进入该模式就可以输入内容了。</li>
+<li>在Insert模式中，按“esc”键返回Normal模式。</li>
+<li>在命令行模式输入冒号“:”进入底行命令行模式</li>
+</ul>
+<h3 id="命令模式"><a href="#命令模式" class="headerlink" title="命令模式"></a>命令模式</h3><ul>
+<li>“hjkl”可以移动光标，相当于方向键“←↓↑→”，非常推荐使用这个，相当于ThinkPad的小红点功能。</li>
+<li>i    进入Insert模式</li>
+<li>x    删除当前光标所在的一个字符</li>
+<li>dd    删除当前行，并把删除的行保存到剪贴板</li>
+<li>p    粘贴</li>
+<li>yy    复制，有粘贴肯定得有复制啊</li>
+<li>u    撤销上一步操作</li>
+<li>ZZ 保存</li>
+<li>help <command>    显示相关命令的信息</li>
+</ul>
+<h3 id="底行命令行模式："><a href="#底行命令行模式：" class="headerlink" title="底行命令行模式："></a>底行命令行模式：</h3><ul>
+<li>:e    <path to="" file=""></path>    打开一个文件</li>
+<li>:w    存盘</li>
+<li>:saveas <path to="" file=""></path>    另存为<path to="" file=""></path></li>
+<li>:x, :wq    保存并退出</li>
+<li>:q! 退出不保存，:qa! 强行退出所有的正在编辑的文件</li>
+<li>:bn和:bp 同事打开很多文件的情况下，用来切换下一个上一个文件</li>
+</ul>
+<h2 id="进阶"><a href="#进阶" class="headerlink" title="进阶"></a>进阶</h2><p>在掌握Vim基础操作的基础上，这些命令会提升你的效率，正是这些命令才能体现Vim的强大，让你喜欢用它。</p>
+<h3 id="快速移动光标"><a href="#快速移动光标" class="headerlink" title="快速移动光标"></a>快速移动光标</h3><p>gg    移动光标到首行<br>G    移动光标到<br>NG，:N<enter>    移动光标到第N行，N是数字（配合:set number使用）<br>0    到当前行开头<br>$    到当前行行尾</enter></p>
+<p>另外还有字符、词级别的光标移动命令，感觉使用不如以上命令频繁。</p>
+<h3 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h3><p>:/<pattern>   查找<pattern>这个词，找到后，光标会定位到第一个匹配内容的位置，搜索的内容高亮显示。</pattern></pattern></p>
+<h3 id="重复执行"><a href="#重复执行" class="headerlink" title="重复执行"></a>重复执行</h3><p>N <command>    重复执行命令N次，N是数字<br>例如：3dd删除3行</p>
+<h3 id="可视化操作"><a href="#可视化操作" class="headerlink" title="可视化操作"></a>可视化操作</h3><p>增加注释<br><img src="http://7xo5yo.com1.z0.glb.clouddn.com/github/vim.png" alt="Vim VISUAL BLOCK"></p>
+<ul>
+<li>命令模式下，将光标定位到要编辑块的开头</li>
+<li>然后<control v="">，进入到块可视化模式，</control></li>
+<li>用（hjkl）选中要进行操作的块，此处我选择的是每行第一列组成的块，</li>
+<li>然后大写“I”表示Insert，输入“//”，然后按Esc键为区块的每一行生效， </li>
+</ul>
+<p>另外</p>
+<ul>
+<li>v 字符可视化模式</li>
+<li>V 行可视化模式</li>
+</ul>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://zh.wikibooks.org/zh-cn/Vim/%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F" target="_blank" rel="external">Vim三种模式</a></p>
+<p><a href="http://coolshell.cn/articles/5426.html" target="_blank" rel="external">简明Vim练级攻略</a></p>
+<p><a href="https://github.com/yangyangwithgnu/use_vim_as_ide#3.1" target="_blank" rel="external">所需即所获：像IDE一样使用Vim</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;说来Vim不算陌生，大一折腾过Linux，vim必然是绕不过去要了解和使用的，后来上了前端船，用了sublime等文本编辑器，工作中用WebStorm这样的大型强大的IDE，好久没有摸过Vim了，生疏了，现在学C++，看了些教程，记录下Vim最常用到的一些功能。&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="Vim" scheme="http://suibobuzhuliu.github.io/tags/Vim/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>前端模块化</title>
+    <link href="http://suibobuzhuliu.github.io/2016/05/26/%E5%89%8D%E7%AB%AF%E6%A8%A1%E5%9D%97%E5%8C%96/"/>
+    <id>http://suibobuzhuliu.github.io/2016/05/26/前端模块化/</id>
+    <published>2016-05-26T13:11:08.000Z</published>
+    <updated>2016-10-22T07:55:09.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>名字就是这么朴素，然而可能要写好多东西。</p>
+<p><strong>拥抱模块化，拥抱ES6。</strong> </p>
+<a id="more"></a>
+<h2 id="前端模块化历史"><a href="#前端模块化历史" class="headerlink" title="前端模块化历史"></a>前端模块化历史</h2><p>要想较为深入的理解CommonJS、AMD、CMD各种规范和require.js、sea.js等模块加载器的作用、原理和适用场景，扒一扒前端模块化的历史进程还是很有必要的。</p>
+<p>感谢玉伯等人开发了seajs，更准确来说感谢他们为首营造的这个社区。这里集中出现了好多讨论前端模块化等问题的issues。</p>
+<p>09-10年期间，<strong>CommonJS</strong>最初叫ServerJS，CommonJS社区推出了<strong>Modules/1.0规范</strong>，并在Node.js等环境下取得了很不错的实践。社区人员想更进一步把ServerJS的成功经验推广到浏览器端（很自然的想法），并且改了社区名字为CommonJS。</p>
+<p>在讨论能适用于浏览器端的下一代标准的时候，他们产生了分歧，并由此产生了三大流派：</p>
+<ol>
+<li><p>Modules/1.x流派。这派观点是1.x规范已经够用，一直到浏览器端就好。要做的事新增Modules/Transport规范，在浏览器上运行前，先通过转换工具转换为符合Transport规范的代码（grunt、gulp的Transport插件等就是此作用）。主流代表是服务器端开发人员。他们的成果是componentjs，但已停止维护并推荐webpack、jspn、<strong>browserify</strong>；还有面向ES6新规范的es6-module-transpiler，该项目已经被合到<strong>Babel</strong>中了。</p>
+</li>
+<li><p>Modules/Async流派。这个流派觉得浏览器有自身的特征，不应该直接用Modules/1.x规范。这个观点下的典型代表是AMD规范及其实现<strong>RequireJS</strong>。</p>
+</li>
+<li><p>Modules/2.0流派。这个流派觉得浏览器有自身特征，不应该直接使用Modules/1.x规范，但应该尽可能与Modules/1.x规范保持一致。这个分支产生了两份规范，Modules/2.0-draft和Modules/Wrappings，后者是CMD规范的前身。玉伯后来借鉴RequireJS和Modules/2.0规范搞出了<strong>seajs</strong>，遵循CMD规范。  </p>
+</li>
+</ol>
+<h2 id="Babel"><a href="#Babel" class="headerlink" title="Babel"></a>Babel</h2><pre><code>         Babel
+ES6        --&gt;        CommonJS
+</code></pre><p>JavaScript最新规范ECMAScript 6已经推出，此版本增添了很多新特性和语法。这其中许多特性例如类、箭头函数等目前并没有被很好的兼容支持。Babel能让我们按照新规范写的包含很多新特性的代码在更多的环境中很好的运行。</p>
+<p>Babel是一个功能丰富的通用编译器。它可以把用最新标准编写的Javascript代码向下编译成可以在今天随处可用的版本。这一过程叫做“源码到源码”编译，也被称为转换编译。它的用途不止于此，还能编译React所用的JSX语法，用于静态类型检查的流式语法（Flow Synatx）。</p>
+<p>Babel中用来将ES6(es2015)转译成ES5的预设（preset）是“preset-es2015”，这个是官方的预设。这个预设包含了一系列的插件。在官网的<a href="http://babeljs.io/docs/plugins/preset-es2015/" target="_blank" rel="external">页面</a>可以看到下图所示的插件列表就是es2015预设包括的。</p>
+<p><img src="http://7xo5yo.com1.z0.glb.clouddn.com/github/babel_es2015.png" alt="插件列表"></p>
+<p>图中圈出的插件是“transform-es2015-modules-commonjs”，这个是模块化相关的插件，其作用是转换ES2015模块转换成CommonJS。</p>
+<p>所以，<strong>Babel默认是将ES6规范的代码转化成CommonJS规范的代码</strong>。</p>
+<p>es2015-modules-amd将ES6代码转换为AMD规范的代码，通过RequireJS加载。</p>
+<p>es2015-modules-systemjs将ES6代码转换为SystemJS（Universal dynamic module loader），注意这个并不是系统原生JS的意思，也是一个模块加载器，我差点理解错了。</p>
+<p>es2015-modules-umd插件可以将ES6代码转换为UMD规范的代码。</p>
+<h2 id="CommonJS"><a href="#CommonJS" class="headerlink" title="CommonJS"></a>CommonJS</h2><h2 id="AMD"><a href="#AMD" class="headerlink" title="AMD"></a>AMD</h2><h2 id="UMD"><a href="#UMD" class="headerlink" title="UMD"></a>UMD</h2><p>UMD(University Module Definition)的目的是兼容服务器和浏览器客户端等环境平台设计的。umd模式会把模块代码包裹进一个立即调用的函数表达式（Immediately Invoked Function Expression，IIFE）中。</p>
+<p>UMD先判断是否支持Node.js（CommonJS）的模块（export是否存在），存在则使用Node.js模块模式。</p>
+<p>如果不是再判断是否支持AMD（define是否存在），存在则使用AMD的方式在家模块。</p>
+<pre><code>(function (window, factory) {
+    if (typeof exports === &apos;object&apos;) {
+       module.exports = factory();
+    } else if (typeof define === &apos;function&apos; &amp;&amp; define.amd) {
+       define(factory);
+    } else {
+       window.eventUtil = factory();
+    }
+})(this, function () {
+//module ...
+});
+</code></pre><h4 id="举个栗子"><a href="#举个栗子" class="headerlink" title="举个栗子"></a>举个栗子</h4><p>jQuery从1.7版本开始使用UMD模式，即支持RequireJS。下面是jQuery-2.2.4.js源码相关的抽取：</p>
+<pre><code>(function( global, factory ) {
+       if ( typeof module === &quot;object&quot; &amp;&amp; typeof module.exports === &quot;object&quot; ) {
+    // For CommonJS and CommonJS-like environments where a proper `window`
+    // is present, execute the factory and get jQuery.
+    // For environments that do not have a `window` with a `document`
+    // (such as Node.js), expose a factory as module.exports.
+    // This accentuates the need for the creation of a real `window`.
+    // e.g. var jQuery = require(&quot;jquery&quot;)(window);
+    // See ticket #14549 for more info.
+       module.exports = global.document ?
+        factory( global, true ) :
+        function( w ) {
+            if ( !w.document ) {
+                throw new Error( &quot;jQuery requires a window with a document&quot; );
+            }
+            return factory( w );
+        };
+    } else {
+        factory( global );
+    }    
+    // Pass this if window is not defined yet
+}(typeof window !== &quot;undefined&quot; ? window : this, function( window, noGlobal ) {
+    //...
+
+// Register as a named AMD module, since jQuery can be concatenated with other
+// files that may use define, but not via a proper concatenation script that
+// understands anonymous AMD modules. A named AMD is safest and most robust
+// way to register. Lowercase jquery is used because AMD module names are
+// derived from file names, and jQuery is normally delivered in a lowercase
+// file name. Do this after creating the global so that if an AMD module wants
+// to call noConflict to hide this version of jQuery, it will work.
+
+    if ( typeof define === &quot;function&quot; &amp;&amp; define.amd ) {
+       define( &quot;jquery&quot;, [], function() {
+        return jQuery;
+       } );
+    }
+    //...
+       return jQuery;
+}));
+</code></pre><h2 id="Browserify-js"><a href="#Browserify-js" class="headerlink" title="Browserify.js"></a>Browserify.js</h2><pre><code>            Browserify
+CommonJS        --&gt;            原生JS（可在浏览器中运行）
+</code></pre><p>浏览器中不像Node.js中那样，没有定义“require”方法。</p>
+<p>Browserify通过打包你所有的依赖的方式，让你能够在浏览器环境中使用‘require(“modules”)’这样的模块化语句。</p>
+<p>Browserify的功能是依赖分析和打包器。</p>
+<p>具体的原理，<strong>举个栗子</strong></p>
+<p>两个有依赖关系的模块：</p>
+<pre><code>// foo.js
+module.exports = function(x) {
+      console.log(x);
+};
+
+// main.js
+var foo = require(&quot;./foo&quot;);
+foo(&quot;Hi&quot;);
+</code></pre><p>browserify 将所有模块放入一个数组中，id属性是模块变好，source属性是模块源码，deps属性是模块的依赖。建立索引</p>
+<pre><code>[
+      {
+        &quot;id&quot;:1,
+        &quot;source&quot;:&quot;module.exports = function(x) {\n  console.log(x);\n};&quot;,
+        &quot;deps&quot;:{}
+      },
+      {
+        &quot;id&quot;:2,
+        &quot;source&quot;:&quot;var foo = require(\&quot;./foo\&quot;);\nfoo(\&quot;Hi\&quot;);&quot;,
+        &quot;deps&quot;:{&quot;./foo&quot;:1},
+        &quot;entry&quot;:true
+      }
+]
+</code></pre><p>main模块加载foo模块，deps属性指定./foo对应1号模块。执行的时候，浏览器遇到require(‘./foo’)语句，就自动执行1号模块的souce属性，并将执行后的module.exports属性值输出。    </p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.zhihu.com/question/27917401" target="_blank" rel="external">ECMAScript 6 的模块相比CommonJS的有什么优点？| Edward Chu的回答</a></p>
+<p><a href="https://www.zhihu.com/question/30628854" target="_blank" rel="external">require/seajs和webpack/browserify各自的有时以及如何取舍？|寸志的回答</a></p>
+<p><a href="https://github.com/seajs/seajs/issues/588" target="_blank" rel="external">前端模块化开发那点历史</a></p>
+<p><a href="https://github.com/amdjs/amdjs-api/wiki/AMD-(%E4%B8%AD%E6%96%87%E7%89%88" target="_blank" rel="external">AMD规范</a>)</p>
+<p><a href="http://wiki.commonjs.org/wiki/CommonJS" target="_blank" rel="external">CommonJS wiki</a></p>
+<p><a href="https://github.com/thejameskyle/babel-handbook/blob/master/translations/zh-Hans/user-handbook.md" target="_blank" rel="external">babel-handbook</a></p>
+<p><a href="http://babeljs.io/docs/plugins/" target="_blank" rel="external">BABEL Plugins</a></p>
+<p><a href="https://github.com/umdjs/umd" target="_blank" rel="external">UMD规范</a></p>
+<p><a href="http://www.ruanyifeng.com/blog/2015/05/commonjs-in-browser.html" target="_blank" rel="external">浏览器加载CommonJS模块的原理与实现|阮一峰</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;名字就是这么朴素，然而可能要写好多东西。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;拥抱模块化，拥抱ES6。&lt;/strong&gt; &lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="模块化" scheme="http://suibobuzhuliu.github.io/tags/%E6%A8%A1%E5%9D%97%E5%8C%96/"/>
+    
+      <category term="前端" scheme="http://suibobuzhuliu.github.io/tags/%E5%89%8D%E7%AB%AF/"/>
+    
+      <category term="Babel" scheme="http://suibobuzhuliu.github.io/tags/Babel/"/>
+    
+      <category term="Browserify" scheme="http://suibobuzhuliu.github.io/tags/Browserify/"/>
+    
+      <category term="UMD" scheme="http://suibobuzhuliu.github.io/tags/UMD/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>hexo高级用法</title>
+    <link href="http://suibobuzhuliu.github.io/2016/05/22/hexo%E9%AB%98%E7%BA%A7%E7%94%A8%E6%B3%95/"/>
+    <id>http://suibobuzhuliu.github.io/2016/05/22/hexo高级用法/</id>
+    <published>2016-05-22T13:44:41.000Z</published>
+    <updated>2016-10-22T07:55:09.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>一直比较懒，站点基本功能都没添加完毕，搭好环境学会编辑发布就开始用了，体验很不错，今天把自我介绍About、留言Guestbook等功能添加上了。网上教程不算多但是谷歌搜索出来还是能填满一屏的，但是我感觉这些教程指导过于强调“术”，具体的粘贴什么代码，修改什么，没有那种寻找配置文件，根据自己意图查找handbook再修改参数像配置服务一样靠谱的感觉。</p>
+<a id="more"></a>
+<p>一直比较懒，站点基本功能都没添加完毕，搭好环境学会编辑发布就开始用了，体验很不错，今天把自我介绍About、留言Guestbook等功能添加上了。网上教程不算多但是谷歌搜索出来还是能填满一屏的，但是我感觉这些教程指导过于强调“术”，具体的粘贴什么代码，修改什么，没有那种寻找配置文件，根据自己意图查找handbook再修改参数像配置服务一样靠谱的感觉。所以我还是把找到的靠谱的资源链接给记录下来，方便别的小伙伴，也给自己做个记录。</p>
+<h3 id="推荐的文档资源"><a href="#推荐的文档资源" class="headerlink" title="推荐的文档资源"></a>推荐的文档资源</h3><p><a href="https://www.haomwei.com/technology/maupassant-hexo.html#功能配置" target="_blank" rel="external">屠夫9441的博客</a></p>
+<p>屠城这个站点和其作者屠夫应该算是推广Hexo和maupassant这个主题很重要的力量。这里整理的文档内容丰富而且排版很不错。很推荐。</p>
+<h3 id="两个主题文档"><a href="#两个主题文档" class="headerlink" title="两个主题文档"></a>两个主题文档</h3><p>maupassant和next这两个主题有较多的人使用，以下是开源社区整理出的使用和配置文档，其实很多配置方法是想通的，可类比。</p>
+<p><a href="https://github.com/tufu9441/maupassant-hexo" target="_blank" rel="external">tufu9441/maupassant-hexo</a></p>
+<p>屠夫的github，Maupassant文档</p>
+<p><a href="https://github.com/iissnan/hexo-theme-next/wiki" target="_blank" rel="external">NexT使用文档</a></p>
+<p>NexT主题配置参考</p>
+<p><a href="http://zhesong.info/2015/12/30/my-first-pull-request/" target="_blank" rel="external">http://zhesong.info/2015/12/30/my-first-pull-request/</a><br>这篇也比较有意思，好像圈外人写的。</p>
+<h3 id="留言页-amp-amp-关于页"><a href="#留言页-amp-amp-关于页" class="headerlink" title="留言页&amp;&amp;关于页"></a>留言页&amp;&amp;关于页</h3><pre><code>hexo new page guestbook
+</code></pre><p>hexoblog/source/ 目录中就会新增guestbook目录，新增的目录中还有个index.md文件，这个就是你要编辑的留言页。</p>
+<p>编辑好之后找到主题目录的配置文件，比如 themes/maupassant/_config.yml，在menu段仿造上面的首页（index）、归档（archive）增加guestbook一项配置信息。</p>
+<p>留言板单让得有留言功能啊，把已经在系统中使用的disqus评论功能引入。为什么普通文章页面底部有评论而新建的留言页面没有？那是因为hexo中页面分为几种类型，常见的有post、archive、page，分别对应普通文章、归档页、关于和留言页，它们都有着各自的配置文件。那我们去修改下page对应的配置文件。</p>
+<p>还是在主题maupassant目录中，切到layout目录，里面有index.jade、base.jade、archive.jade、page.jade等文件，我们需要编辑的就是page.jade，建议稍微看下jade模板引擎的文档，大致知道如何修改即可。</p>
+<ol>
+<li><p>在page.jade结尾加入如下配置：</p>
+<pre><code>if page.comments
+      include _partial/comments
+</code></pre><p> 意思是如果page文件中comments返回值不是false，那么就在页尾添加评论功能，</p>
+</li>
+<li><p>然后在评论页面的头部配置中加入：</p>
+<pre><code>comments: true
+</code></pre></li>
+</ol>
+<p>“关于我”页面不想被评论，搞得页面很乱，头部配置加入：</p>
+<pre><code>comments: false
+</code></pre><p>这样就个性化的解决了不同page页的需求。     </p>
+<p><img src="http://7xo5yo.com1.z0.glb.clouddn.com/github/hexo_comments.png" alt="留言页配置"></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;一直比较懒，站点基本功能都没添加完毕，搭好环境学会编辑发布就开始用了，体验很不错，今天把自我介绍About、留言Guestbook等功能添加上了。网上教程不算多但是谷歌搜索出来还是能填满一屏的，但是我感觉这些教程指导过于强调“术”，具体的粘贴什么代码，修改什么，没有那种寻找配置文件，根据自己意图查找handbook再修改参数像配置服务一样靠谱的感觉。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="hexo" scheme="http://suibobuzhuliu.github.io/tags/hexo/"/>
+    
+      <category term="留言" scheme="http://suibobuzhuliu.github.io/tags/%E7%95%99%E8%A8%80/"/>
+    
+      <category term="about" scheme="http://suibobuzhuliu.github.io/tags/about/"/>
+    
+      <category term="comments" scheme="http://suibobuzhuliu.github.io/tags/comments/"/>
+    
+      <category term="guestbook" scheme="http://suibobuzhuliu.github.io/tags/guestbook/"/>
+    
+      <category term="maupassant" scheme="http://suibobuzhuliu.github.io/tags/maupassant/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>H5实现微信转账类似金额输入控件</title>
+    <link href="http://suibobuzhuliu.github.io/2016/05/19/H5%E5%AE%9E%E7%8E%B0%E5%BE%AE%E4%BF%A1%E8%BD%AC%E8%B4%A6%E7%B1%BB%E4%BC%BC%E9%87%91%E9%A2%9D%E8%BE%93%E5%85%A5%E6%8E%A7%E4%BB%B6/"/>
+    <id>http://suibobuzhuliu.github.io/2016/05/19/H5实现微信转账类似金额输入控件/</id>
+    <published>2016-05-19T12:08:03.000Z</published>
+    <updated>2016-10-22T07:55:09.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>H5实现一个类似微信转账的金额输入控件，看似简单，实际上也不难，但是想做好有巨多的坑。此篇也可以叫input控件type问题研究。<br><a id="more"></a></p>
+<h2 id="H5金额输入控件"><a href="#H5金额输入控件" class="headerlink" title="H5金额输入控件"></a>H5金额输入控件</h2><p>H5实现一个类似微信转账的金额输入控件，看似简单，实际上也不难，但是想做好有巨多的坑。此篇也可以叫input控件type=number问题。</p>
+<h3 id="DOM"><a href="#DOM" class="headerlink" title="DOM"></a>DOM</h3><pre><code>&lt;input class=&quot;&quot; name=&quot;&quot; type=&quot;number&quot; autofocus=&quot;autofocus&quot; id=&quot;amount&quot; /&gt;
+</code></pre><p>type=”number”，此属性可在用户点击input控件时呼起软键盘对应的数字键盘。</p>
+<p>autofocus=”autofocus”，此属性可在用户进入页面时自动获得焦点，iPhone上无效。</p>
+<h3 id="校验"><a href="#校验" class="headerlink" title="校验"></a>校验</h3><p>必须的校验还是要有的。</p>
+<pre><code>check: function(value){
+        var _this = this;
+        if(/^\d+(\.\d{1,2})?$/g.test(value)){
+            value = Number(value) * Number(100);
+            if(value == 0 || value &gt; Number(999999)){
+                return false;
+            }
+            _this.Param.monunt = value;
+            return true;
+        }else{
+            return false;
+        }
+    }
+</code></pre><h3 id="交互优化"><a href="#交互优化" class="headerlink" title="交互优化"></a>交互优化</h3><p>要优化得到点大致可以分为两类：</p>
+<pre><code>1. 非法字符输入
+2. 基于已输入内容的非法输入
+</code></pre><p>第一种很好理解就是，不能输入数字和小数点之外的字符（汉字英文字母其他符号）</p>
+<p>第二种意思是，用户输入的字符合法，输入框中的内容不是合法货币数字。可能包括的情况：1.小数点开头，2. 出现两个小数点， 3. 小数位数大于2 </p>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>第一种问题的优化思路是，在键盘按下时，判断每次输入是否合法。</p>
+<p>具体有两种方法：</p>
+<pre><code>1. 在input控件上绑定keypress事件，按键时触发，然后通过事件对象获取keyCode，通过keyCode判断输入内容。
+
+2. 安卓webvie和chrome中，input元素有个validity属性对象，这个属性对象中有很多值可以判断输入内容是否合法。valid为true，badInput为false输入为合法，反之不合法，下图是安卓页面中alert出该对象内容。
+</code></pre><p><img src="http://7xo5yo.com1.z0.glb.clouddn.com/github/validity.png" alt="validity"></p>
+<p>第二种问题优化，不同于第一种，它是基于已经输入的一坨和目前刚输入的判断是否合法。</p>
+<p>绑定keyup事件，keyup触发时输入内容已经到input中，你可以通过js获取到。如果input控件的type是text，当输入不合法的字符时，通过js获取其内容，去掉末尾字符，然后再将处理后的结果插入到input控件中。</p>
+<h3 id="兼容性"><a href="#兼容性" class="headerlink" title="兼容性"></a>兼容性</h3><p><strong>安卓不支持keypress事件、keyCode</strong></p>
+<p>安卓不支持keypress事件，可用keydown替代，但是keyCode问题解决不了👇</p>
+<p>安卓中所有软键盘事件对象的keyCode、which属性都返回 0，获取不到当前被点击的键。</p>
+<p><a href="https://code.google.com/p/android/issues/detail?id=68284" target="_blank" rel="external">WebView keypress event not working in 4.4.2</a></p>
+<p><img src="http://7xo5yo.com1.z0.glb.clouddn.com/github/keyCode0.png" alt="stackOverflow"></p>
+<p>可悲的是似乎没人开始着手修复这个bug……╮(╯▽╰)╭</p>
+<p><strong>iOS Safari 及 OSX Safari对keypress、keyCode支持良好。</strong></p>
+<p>DOM规范规定，type=”number”的input只能接受浮点数，各个端的具体表现是，pc浏览器不能输入不合法的字符，移动端浏览器包括Safari和Android webview输入非法字符都能成功，但是通过js获取它们的内容会是空字符串””。</p>
+<p>iPhone Safari中validity为空对象。</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="http://stackoverflow.com/questions/8942678/keyboardevent-in-chrome-keycode-is-0" target="_blank" rel="external">KeyboardEvent in Chrome, keyCode is 0</a></p>
+<p><a href="http://www.qcyoung.com/2015/09/01/type-number%E9%9D%9E%E6%B3%95%E5%80%BC%E7%9A%84%E4%B8%80%E4%BA%9B%E6%8E%A2%E7%A9%B6%E5%8F%8A%E6%8B%93%E5%B1%95/" target="_blank" rel="external">type=number非法值的一些探究及拓展</a></p>
+<p><a href="http://stackoverflow.com/questions/16634471/how-can-i-get-the-html5-validity-state-of-an-input-text-box" target="_blank" rel="external">How can I get the HTML5 validity state of an input text box</a></p>
+<p><a href="http://yunzhu.iteye.com/blog/1345398" target="_blank" rel="external">限制文本框输入</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;H5实现一个类似微信转账的金额输入控件，看似简单，实际上也不难，但是想做好有巨多的坑。此篇也可以叫input控件type问题研究。&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="input" scheme="http://suibobuzhuliu.github.io/tags/input/"/>
+    
+      <category term="type=number" scheme="http://suibobuzhuliu.github.io/tags/type-number/"/>
+    
+      <category term="金额" scheme="http://suibobuzhuliu.github.io/tags/%E9%87%91%E9%A2%9D/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>利用canvas合成多张图片</title>
+    <link href="http://suibobuzhuliu.github.io/2016/05/06/%E5%88%A9%E7%94%A8canvas%E5%90%88%E6%88%90%E5%A4%9A%E5%BC%A0%E5%9B%BE%E7%89%87/"/>
+    <id>http://suibobuzhuliu.github.io/2016/05/06/利用canvas合成多张图片/</id>
+    <published>2016-05-06T11:38:52.000Z</published>
+    <updated>2016-10-22T07:55:09.000Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="http://7xo5yo.com1.z0.glb.clouddn.com/wxpayTimeline.png" alt="合成后的图片"></p>
+<h3 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h3><p>一般合并图片的需求用工具软件处理就行了。要用代码来实现两个图片的合并而且放在前端，某些特殊的场景还是需要的，比如：合成根据不同用户信息合成带图案的二维码，每个用户生成的二维码（前端生成）是不同的。</p>
+<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>在一个canvas上多次调用drawImage函数，分别绘制在canvas中，多次之后canvas中是多个图片合并的效果，然后再调用toDataURL函数将canvas转成dataURL格式的图片。用户长按就能保存了。</p>
+<h3 id="需要注意的点"><a href="#需要注意的点" class="headerlink" title="需要注意的点"></a>需要注意的点</h3><h4 id="canvas必须设置宽度和高度"><a href="#canvas必须设置宽度和高度" class="headerlink" title="canvas必须设置宽度和高度"></a>canvas必须设置宽度和高度</h4><pre><code>var canvas = document.getElementById(&quot;myCanvas&quot;);
+canvas.width = &quot;600&quot;;
+canvas.height = &quot;600&quot;
+</code></pre><p>####报安全性错误<br>如果你的图片url和页面不在同一域下，在调用toDataURL函数的时候就会报安全性错误。chrome中：</p>
+<blockquote>
+<p>Uncaught SecurityError: Failed to execute ‘toDataURL’ on ‘HTMLCanvasElement’: Tainted canvases may not be exported.</p>
+</blockquote>
+<p>Safari中貌似更严格，根域名相同子域不同依然会报错：</p>
+<blockquote>
+<p>Cross-origin image load denied by Cross-Origin Resource Sharing policy.</p>
+</blockquote>
+<p>解决方法：</p>
+<pre><code>img.setAttribute(&quot;crossOrigin&quot;,&quot;anonymous&quot;);
+</code></pre><h4 id="图片载入"><a href="#图片载入" class="headerlink" title="图片载入"></a>图片载入</h4><p>获取图片对象两种方式：</p>
+<ol>
+<li><p>利用js及css选择器获取img元素</p>
+</li>
+<li><p>为每个图片创建一个新的img对象，再赋给其src等参数</p>
+</li>
+</ol>
+<p>用第二种方式的话就要等到img加载完毕再进行canvas其他操作，在img的load事件处理函数中进行操作。否则可能会绘制出空内容。</p>
+<p>发现H5canvas中定位大小相关的参数是：前两个参数是起点坐标，后两个参数是宽高。例如rect、drawImage</p>
+<h3 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h3><p><a href="https://github.com/suibobuzhuliu/blog/tree/master/mergeImgs" target="_blank" rel="external">https://github.com/suibobuzhuliu/blog/tree/master/mergeImgs</a></p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="http://www.loveqiao.com/dom/html5css3/hecheng/" target="_blank" rel="external">Html5 Canvas实现图片合成</a> （非常好的demo）</p>
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/drawImage" target="_blank" rel="external">drawImage() | MDN 配图讲解函数参数用法</a></p>
+<p><a href="http://stackoverflow.com/questions/20424279/canvas-todataurl-securityerror" target="_blank" rel="external">canvas.toDataURL() SecurityError</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;http://7xo5yo.com1.z0.glb.clouddn.com/wxpayTimeline.png&quot; alt=&quot;合成后的图片&quot;&gt;&lt;/p&gt;
+&lt;h3 id=&quot;场景&quot;&gt;&lt;a href=&quot;#场景&quot; class=&quot;headerlink&quot; title=&quot;
+    
+    </summary>
+    
+    
+      <category term="canvas" scheme="http://suibobuzhuliu.github.io/tags/canvas/"/>
+    
+      <category term="合成图片" scheme="http://suibobuzhuliu.github.io/tags/%E5%90%88%E6%88%90%E5%9B%BE%E7%89%87/"/>
+    
+      <category term="dataURL" scheme="http://suibobuzhuliu.github.io/tags/dataURL/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>HTML5 input类型踩坑记录</title>
+    <link href="http://suibobuzhuliu.github.io/2016/05/04/HTML5%20input%E7%B1%BB%E5%9E%8B%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/"/>
+    <id>http://suibobuzhuliu.github.io/2016/05/04/HTML5 input类型踩坑记录/</id>
+    <published>2016-05-04T10:43:05.000Z</published>
+    <updated>2016-10-22T07:55:09.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>HTML5规范为表单input控件引入了更多的类型，而移动浏览器厂商对这些新特性进行了适配，显示不同类型定制的键盘，使用户更容易输入数据。</p>
+<h3 id="1-demo"><a href="#1-demo" class="headerlink" title="1. demo"></a>1. demo</h3><p>我将常用的几个类型（number、tel、email、url、date、time等）放在一起做了一个demo页。</p>
+<p>源码地址：<a href="https://github.com/suibobuzhuliu/blog/tree/master/input" target="_blank" rel="external">https://github.com/suibobuzhuliu/blog/tree/master/input</a></p>
+<p>用Android、iPhone手机浏览器打开该页面并点击input操作后，你会得出结论：安卓5+和iOS对input控件新类型支持都比较好，安卓适配情况渐渐赶上来了。</p>
+<h3 id="2-number类型的一些坑"><a href="#2-number类型的一些坑" class="headerlink" title="2. number类型的一些坑"></a>2. number类型的一些坑</h3><p>在制作一个金额接收框的过程中交互可能有以下要求：</p>
+<ol>
+<li>接收输入为人民币金额，即大于零的浮点数 </li>
+<li>点击input控件进行输入，弹出数字键盘</li>
+<li>输入字符位数有限制，超出限定则不能继续输入</li>
+<li>开头输入“.”，补齐为“0.”</li>
+<li>页面打开input控件自动获得焦点</li>
+</ol>
+<p>比较以下三种类型控件</p>
+<p>type=”text”<br>输入单行字段</p>
+<p>type=”number”<br>用于输入浮点数的控件。</p>
+<p>type=”tel”<br>用于输入电话号码的控件。</p>
+<h4 id="2-1-数字键盘"><a href="#2-1-数字键盘" class="headerlink" title="2.1 数字键盘"></a>2.1 数字键盘</h4><p>这两种类型的控件点击都能弹出数字键盘，但是iOS系统中tel类型弹出的是拨号键盘，不能输入小数点“.”。</p>
+<p>text类型的input是不进行切换的情况下不会直接出现数字键盘。number类型和tel类型会出现数字键盘，Android中表现为呼起系统或安装的第三方输入法工具的数字键盘，iOS系统表现有较大不同，number类型弹出数字键盘，tel类型弹出Safari拨号键盘。<br>如下图分别为number、tel类型：</p>
+<p><img src="http://7xo5yo.com1.z0.glb.clouddn.com/number.jpg" alt="number"></p>
+<p><img src="http://7xo5yo.com1.z0.glb.clouddn.com/tel.jpg" alt="tel"></p>
+<p>结论：<em>text、tel不满足条件1，text不满足条件2，</em></p>
+<h4 id="2-2-输入长度控制"><a href="#2-2-输入长度控制" class="headerlink" title="2.2 输入长度控制"></a>2.2 输入长度控制</h4><p>input控件有个maxlength属性，对text、tel类型有用，number类型并没有什么卵用。可在手机上打开demo页测试。</p>
+<blockquote>
+<p>If the value of the type attribute is text, email, search, password, tel, or url, this attribute specifies the maximum number of characters (in Unicode code points) that the user can enter; for other control types, it is ignored.</p>
+</blockquote>
+<p>maxlength属性text、email、search、password、tel、url这些类型，可以限定最多输入字符。对number类型无效。</p>
+<p>两种hack：</p>
+<p>第一种：pattern属性</p>
+<blockquote>
+<p>A regular expression that the control’s value is checked against. The pattern must match the entire value, not just some subset. Use the title attribute to describe the pattern to help the user. This attribute applies when the value of the type attribute is text, search, tel, url or email; otherwise it is ignored.</p>
+</blockquote>
+<p>用一个正则表达式语句作为输入校验，在提交的时候进行校验，如果不符合规则会在input右下角弹出title属性中的提示信息。必须匹配完整的输入内容，不是部分。适用于text、search、tel、url、email，其他的不适用。（然而移动端浏览器没有提示，PC测试ok的，可把demo页面运行在pc浏览器）</p>
+<p><img src="http://7xo5yo.com1.z0.glb.clouddn.com/pattern.png" alt="pattern模型提示"></p>
+<p>第二种：js动态获取内容长度</p>
+<p>也有问题，小数点的问题无法解决，number类型input控件中非number类型输入length值不增加</p>
+<p>附：<br>demo线上<a href="http://output.jsbin.com/tanoqic" target="_blank" rel="external">链接</a></p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/Input" target="_blank" rel="external">input | MDN</a></p>
+<p><a href="http://www.oschina.net/translate/using-html5-input-types-to-enhance-the-mobile-browsing-experience" target="_blank" rel="external">使用HTML5 input类型提升移动端输入体验</a></p>
+<p><a href="http://stackoverflow.com/questions/18510845/maxlength-ignored-for-input-type-number-in-chrome" target="_blank" rel="external">maxlength ignored for input type=”number” in chrome</a></p>
+<p><a href="http://stackoverflow.com/questions/8354975/how-to-add-maxlength-for-html5-input-type-number-element" target="_blank" rel="external">How to add maxlength for HTML5 input type=”number” element?</a></p>
+<p><a href="http://www.ziqiangxuetang.com/try/tryhtml5_input_pattern/" target="_blank" rel="external">pattern用法线上demo</a></p>
+<p><a href="http://www.qcyoung.com/2015/09/01/type-number%E9%9D%9E%E6%B3%95%E5%80%BC%E7%9A%84%E4%B8%80%E4%BA%9B%E6%8E%A2%E7%A9%B6%E5%8F%8A%E6%8B%93%E5%B1%95/" target="_blank" rel="external">关于表单iput type=”number”非法值时的一些探究及拓展</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;HTML5规范为表单input控件引入了更多的类型，而移动浏览器厂商对这些新特性进行了适配，显示不同类型定制的键盘，使用户更容易输入数据。&lt;/p&gt;
+&lt;h3 id=&quot;1-demo&quot;&gt;&lt;a href=&quot;#1-demo&quot; class=&quot;headerlink&quot; title=&quot;1. 
+    
+    </summary>
+    
+    
+      <category term="input" scheme="http://suibobuzhuliu.github.io/tags/input/"/>
+    
+      <category term="type" scheme="http://suibobuzhuliu.github.io/tags/type/"/>
+    
+      <category term="number" scheme="http://suibobuzhuliu.github.io/tags/number/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>300毫秒点击延迟</title>
+    <link href="http://suibobuzhuliu.github.io/2016/04/26/300%E6%AF%AB%E7%A7%92%E7%82%B9%E5%87%BB%E5%BB%B6%E8%BF%9F/"/>
+    <id>http://suibobuzhuliu.github.io/2016/04/26/300毫秒点击延迟/</id>
+    <published>2016-04-26T06:38:33.000Z</published>
+    <updated>2016-10-22T07:55:09.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>水果公司在发布iPhone前夕遇到了一个问题，当时的网站都是为了大屏幕是被所设计的。于是苹果的工程师做了一些约定，针对iPhone这种小屏幕浏览桌面端站点的问题。<br>这当中最著名的就是双击缩放（double tap to zoom）。</p>
+<p>鉴于iPhone的成功，其他移动浏览器又都复制了iPhone Safari的多数约定。这就使300ms延迟成了移动端浏览器普遍存在的问题。<br><a id="more"></a></p>
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>未做移动端适配的web页面，触摸事件相对于滑动会有300ms左右的延迟。触摸屏设备浏览器中，在你点击一下屏幕后浏览器在300ms后才会获取到这个“click”动作事件。超过100ms的延迟会让用户感受到卡顿，300ms当然会使用户明显感受到移动设备web应用响应速度慢。</p>
+<h2 id="300ms延迟由来"><a href="#300ms延迟由来" class="headerlink" title="300ms延迟由来"></a>300ms延迟由来</h2><p>水果公司在发布iPhone前夕遇到了一个问题，当时的网站都是为了大屏幕是被所设计的。于是苹果的工程师做了一些约定，针对iPhone这种小屏幕浏览桌面端站点的问题。<br>这当中最著名的就是双击缩放（double tap to zoom）。</p>
+<p>鉴于iPhone的成功，其他移动浏览器又都复制了iPhone Safari的多数约定。这就使300ms延迟成了移动端浏览器普遍存在的问题。</p>
+<p>相关事件时序：</p>
+<pre><code>1. touchstart
+2. touchmove（如果有移动的话有此事件）
+3. touchend
+4. 等待300ms判断是否有第二次点击
+5. click
+</code></pre><p>看下面两个demo的比较：</p>
+<p><a href="http://fontendtest-94fe.coding.io/unzoomable.html" target="_blank" rel="external">可缩放页面</a></p>
+<p><a href="http://fontendtest-94fe.coding.io/unzoomable.html" target="_blank" rel="external">设置不可缩放页面</a></p>
+<p><img src="http://7xo5yo.com1.z0.glb.clouddn.com/github/zoomable.png" style="height:500px;margin:0px;"><img src="http://7xo5yo.com1.z0.glb.clouddn.com/github/unzoomable.png" style="height:500px;margin:0px;"></p>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><h3 id="touch事件代替"><a href="#touch事件代替" class="headerlink" title="touch事件代替"></a>touch事件代替</h3><p>一般会想到既然click事件有较长响应延迟，那就用touchstart、touchend替代。这样做是有问题的。<br>看Google提供的两个demo。</p>
+<p><a href="http://output.jsbin.com/aSeWEwA/1/quiet" target="_blank" rel="external">用click事件</a></p>
+<p><a href="http://output.jsbin.com/aSeWEwA/2/quiet" target="_blank" rel="external">用touchend事件</a></p>
+<p>每行被点击后会改变它们自己的颜色，行的数量比较多需要滑屏，两个demo不同点在于绑定的事件不同。</p>
+<p>demo1有点击后，颜色改变能感到明显的延迟；<br>demo2点击后颜色改变比较及时，但是滑动屏幕时，手指触摸的那一个行在滑动结束时会改变颜色，也就是滑动后出发了touchend事件。</p>
+<h3 id="浏览器厂商方案"><a href="#浏览器厂商方案" class="headerlink" title="浏览器厂商方案"></a>浏览器厂商方案</h3><h4 id="1-禁用缩放"><a href="#1-禁用缩放" class="headerlink" title="1. 禁用缩放"></a>1. 禁用缩放</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;meta name=&quot;viewport&quot; content=&quot;user-scalable=no&quot;&gt;</div><div class="line">&lt;meta name=&quot;viewport&quot; content=&quot;initial-scale=1,maximum-scale=1&quot;&gt;</div></pre></td></tr></table></figure>
+<p>移动端页面不必像浏览pc端页面那样需要缩放，那么对禁用缩放的页面去掉点击延迟。</p>
+<p>这样做有个问题就是完全禁止缩放对移动站点可用性还是有问题，用户可能想通过缩放来看清较小的文字等。</p>
+<h4 id="2-viewport宽度设置为设备宽度"><a href="#2-viewport宽度设置为设备宽度" class="headerlink" title="2. viewport宽度设置为设备宽度"></a>2. viewport宽度设置为设备宽度</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width&quot;&gt;</div></pre></td></tr></table></figure>
+<p>视窗的宽度等于设备的宽度。<br>chrome32之后的版本在处理有此声明的页面的时候，会删除双击缩放，手指捏合缩放依然有效。Firefox也支持这种方案</p>
+<h3 id="3-指针事件"><a href="#3-指针事件" class="headerlink" title="3. 指针事件"></a>3. 指针事件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">html &#123;</div><div class="line">	-ms-touch-action: manipulation;</div><div class="line">	touch-action: manipulation;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>微软推出的非标准扩展方案，只有IE实现了指针事件（Pointer events）。这样能移除IE10、11中所有元素的300ms延迟。带来的问题就是彻底禁用了缩放，双指缩放也给禁止了。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://developers.google.com/web/updates/2013/12/300ms-tap-delay-gone-away" target="_blank" rel="external">300ms tap delay, gone away | Google Developers</a></p>
+<p><a href="http://thx.github.io/mobile/300ms-click-delay" target="_blank" rel="external">300毫秒延迟的来龙去脉 | THX</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;水果公司在发布iPhone前夕遇到了一个问题，当时的网站都是为了大屏幕是被所设计的。于是苹果的工程师做了一些约定，针对iPhone这种小屏幕浏览桌面端站点的问题。&lt;br&gt;这当中最著名的就是双击缩放（double tap to zoom）。&lt;/p&gt;
+&lt;p&gt;鉴于iPhone的成功，其他移动浏览器又都复制了iPhone Safari的多数约定。这就使300ms延迟成了移动端浏览器普遍存在的问题。&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="性能优化" scheme="http://suibobuzhuliu.github.io/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/"/>
+    
+      <category term="delay" scheme="http://suibobuzhuliu.github.io/tags/delay/"/>
+    
+      <category term="300ms延迟" scheme="http://suibobuzhuliu.github.io/tags/300ms%E5%BB%B6%E8%BF%9F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>比Grunt更好用的前端自动化工具--gulp</title>
+    <link href="http://suibobuzhuliu.github.io/2016/03/31/%E6%AF%94Grunt%E6%9B%B4%E5%A5%BD%E7%94%A8%E7%9A%84%E5%89%8D%E7%AB%AF%E8%87%AA%E5%8A%A8%E5%8C%96%E5%B7%A5%E5%85%B7-gulp/"/>
+    <id>http://suibobuzhuliu.github.io/2016/03/31/比Grunt更好用的前端自动化工具-gulp/</id>
+    <published>2016-03-31T13:28:33.000Z</published>
+    <updated>2016-10-22T07:55:09.000Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="http://7xo5yo.com1.z0.glb.clouddn.com/gulp%20logo.png" alt="logo"></p>
+<ul>
+<li><p>前端构建工具</p>
+</li>
+<li><p>基于node.js</p>
+</li>
+<li><p>流式</p>
+</li>
+</ul>
+<h2 id="一、安装"><a href="#一、安装" class="headerlink" title="一、安装"></a>一、安装</h2><p>全局安装：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install -g gulp</div></pre></td></tr></table></figure>
+<p>项目目录中安装：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nmp install --save-dev gulp</div></pre></td></tr></table></figure>
+<p>编辑package.json文件，</p>
+<p>或者执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm init</div></pre></td></tr></table></figure>
+<p>生成package.json，然后执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install</div></pre></td></tr></table></figure>
+<h2 id="二、API"><a href="#二、API" class="headerlink" title="二、API"></a>二、API</h2><p>gulp和插件安装完毕后，</p>
+<p>在目录中创建配置文件gulpfile.js。</p>
+<h4 id="gulp-src"><a href="#gulp-src" class="headerlink" title="gulp.src()"></a>gulp.src()</h4><p>指定数据源文件，产生数据流。参数是文件，可以是数组</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gulp.src([&quot;js/**/*.js&quot;,[!js/**/*.min.js]])</div></pre></td></tr></table></figure>
+<h4 id="gulp-dest"><a href="#gulp-dest" class="headerlink" title="gulp.dest()"></a>gulp.dest()</h4><p>将管道的输出写入文件，同事将这些输出继续输出，因此可以多次调用dest方法，将输出写入多个目录。目录不存在则新建。</p>
+<h4 id="gulp-task"><a href="#gulp-task" class="headerlink" title="gulp.task()"></a>gulp.task()</h4><p>用于任务定义。第一个参数是任务名称，第二个参数是任务函数，指定任务具体的操作。</p>
+<p>task方法还可以指定按顺序运行的一组任务，例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gulp.task(&quot;build&quot;,[&quot;css&quot;,&quot;js&quot;,&quot;imgs&quot;]);</div></pre></td></tr></table></figure>
+<p>上例中，定义一个任务build，执行三个子任务“css”、“js”、“imgs”。这些任务不是同时进行的，不能认为“js”任务结束时“css”任务已经结束。</p>
+<p>如果需要确保一个任务在另一个任务结束后执行，可将函数和任务组合结合起来指定依赖关系。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">gulp.task(&quot;css&quot;,[&quot;greet&quot;], function()&#123;</div><div class="line"></div><div class="line">	//</div><div class="line"></div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>上例中，定义“css”任务，执行前检查greet任务是否执行完毕，完毕在调用第三个参数定义的函数。</p>
+<p>default tasks</p>
+<p>执行gulp任务是在命令行中输入：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gulp + taskName</div></pre></td></tr></table></figure>
+<p>如果不加taskName，就会报“Task ‘default’ is not in your gulpfile”，找不着默认任务。最好在配置文件末，写上默认任务，执行起来比较方便。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">gulp.task(&quot;scripts&quot;,function()&#123;</div><div class="line"></div><div class="line">	//...</div><div class="line"></div><div class="line">&#125;);</div><div class="line"></div><div class="line">...</div><div class="line"></div><div class="line"></div><div class="line">gulp.task(&quot;default&quot;, [&quot;scripts&quot;]);</div></pre></td></tr></table></figure>
+<h4 id="gulp-watch"><a href="#gulp-watch" class="headerlink" title="gulp.watch()"></a>gulp.watch()</h4><p>监听文件的状态，文件发生变化执行某些任务。</p>
+<p>用法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">gulp.task(&quot;watch&quot;,function()&#123;</div><div class="line"></div><div class="line">	gulp.watch(&quot;js/src/**/*.js&quot;,[&quot;copy&quot;,&quot;concat&quot;,&quot;uglify&quot;])</div><div class="line"></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>上例中任务数组可以换成回调函数，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">gulp.task(&quot;watch&quot;,function()&#123;</div><div class="line"></div><div class="line">	gulp.watch(&quot;js/src/**/*.js&quot;,function(event)&#123;</div><div class="line"></div><div class="line">		console.log(&quot;Event type: &quot; + event.type + &quot; Event path&quot; + event.path);</div><div class="line"></div><div class="line">	&#125;)</div><div class="line"></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>回调函数中打印事件类型和发生改变文件路径，type值有“added”、“deleted”、“changed”</p>
+<p>gulp.watch可配合LiveReload、BrowserSync使用，实现文件修改浏览器立即刷新等功能</p>
+<h2 id="三、其他高级用法"><a href="#三、其他高级用法" class="headerlink" title="三、其他高级用法"></a>三、其他高级用法</h2><h4 id="gulp-env"><a href="#gulp-env" class="headerlink" title="gulp.env"></a>gulp.env</h4><p>gulp有个env属性可以接受参数，env属性值对应一个对象：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">&#123; _ : [] &#125;</div></pre></td></tr></table></figure>
+<p>“_”属性值默认是空，当指定执行任务时，它的值是任务名。</p>
+<p>例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gulp compress</div></pre></td></tr></table></figure>
+<p>gulp.env是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123; _ : [&quot;compress&quot;]&#125;</div></pre></td></tr></table></figure>
+<p>同理指定多个任务，数组中就有多个值。可以获取这些任务名来执行不同的操作，例如根据任务名不同来修改不同目录</p>
+<h4 id="命令行传参"><a href="#命令行传参" class="headerlink" title="命令行传参"></a>命令行传参</h4><p>△gulp.env接收命令行参数的方式不推荐使用，废弃了。官方推荐的”minimist”也不推荐，推荐使用“yargs”这个插件。</p>
+<p>把env这个例子略过去，直接看yargs的例子。</p>
+<hr>
+<p>用法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gulp --key1 value1 --key2 value2</div></pre></td></tr></table></figure>
+<p>获取方式和上面类似，通过gulp.env</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">gulp.env: &#123; _ : [], key1: value1, key2: value2 &#125;</div></pre></td></tr></table></figure>
+<p>针对参数使用举个例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div></pre></td><td class="code"><pre><div class="line">var gulp = require(&quot;gulp&quot;),</div><div class="line"></div><div class="line">    uglify = require(&quot;gulp-uglify&quot;),</div><div class="line"></div><div class="line">    header = require(&quot;gulp-header&quot;),</div><div class="line"></div><div class="line">    gutil = require(&quot;gulp-util&quot;);</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">var dir = gulp.env.dir ? gulp.env.dir : &quot;common&quot;,</div><div class="line"></div><div class="line">    date = (new Date()).getTime();</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">gulp.task(&quot;default&quot;,function()&#123;</div><div class="line"></div><div class="line">    gutil.log(gutil.colors.bgGreen(&quot;/* ------- 用 法 ------- */&quot;));</div><div class="line"></div><div class="line">    gutil.log(gutil.colors.bgGreen(&quot;拷贝：gulp copy --dir [目录名]&quot;));</div><div class="line"></div><div class="line">    gutil.log(gutil.colors.bgGreen(&quot;压缩：gulp jsmin --dir [目录名] &quot;));</div><div class="line"></div><div class="line">&#125;);</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">gulp.task(&quot;copy&quot;,function()&#123;</div><div class="line"></div><div class="line">    return gulp.src(&quot;src/&quot; + dir + &quot;/*.js&quot;)</div><div class="line"></div><div class="line">    .pipe(header(&quot;/* timeStapmp=&quot;+ date +&quot; */ \r\n&quot;))</div><div class="line"></div><div class="line">    .pipe(gulp.dest(&quot;min/&quot; + dir))</div><div class="line"></div><div class="line">&#125;);</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">gulp.task(&quot;jsmin&quot;,function()&#123;</div><div class="line"></div><div class="line">    return gulp.src(&quot;src/&quot; + dir + &quot;/*.js&quot;)</div><div class="line"></div><div class="line">    .pipe(uglify())</div><div class="line"></div><div class="line">    .pipe(header(&quot;/* timeStapmp=&quot;+ date +&quot; */ \r\n&quot;))</div><div class="line"></div><div class="line">    .pipe(gulp.dest(&quot;min/&quot; + dir))</div><div class="line"></div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>执行：</p>
+<p><img src="http://7xo5yo.com1.z0.glb.clouddn.com/paramter.png" alt="执行结果"></p>
+<p>上例中，定义了两个任务”copy”和“jsmin”，两个任务都能接受一个参数，这个参数指定操作对应的目录。</p>
+<hr>
+<p><strong><em>yargs</em></strong></p>
+<p>命令行用法，不止一种：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gulp --key1=value1 --key2=value2</div></pre></td></tr></table></figure>
+<p>gulpfile.js中接收，使用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">var dir = argv.dir,</div><div class="line">	item = argv.item;</div><div class="line">gulp.task(item,function()&#123;</div><div class="line">    //...</div><div class="line">&#125;);</div><div class="line"></div><div class="line">gulp.task(&quot;dist&quot;,[ item ],function()&#123;</div><div class="line">    gulp.src(&quot;dist/&quot; + dir + &quot;/&quot;+ item +&quot;.js&quot;)</div><div class="line">        .pipe(uglify(&#123;</div><div class="line">            mangle:&#123;</div><div class="line">                except: [&quot;define&quot;,&quot;require&quot;,&quot;exports&quot;,&quot;modules&quot;]</div><div class="line">            &#125;,</div><div class="line">            output: &#123;</div><div class="line">                max_line_len: 100</div><div class="line">            &#125;</div><div class="line">        &#125;))</div><div class="line">        .pipe(gulp.dest(&quot;dist/&quot;+ dir +&quot;/&quot;));</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>从命令行中动态接收dir、item两个参数，然后执行对应构建任务，这样多个模块就可以共用一段代码。</p>
+<h2 id="四、插件"><a href="#四、插件" class="headerlink" title="四、插件"></a>四、插件</h2><p><a href="http://gulpjs.com/plugins/" target="_blank" rel="external">首页</a></p>
+<table>
+<thead>
+<tr>
+<th>常用操作</th>
+<th>插件名称</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>文件合并</td>
+<td>gulp-concat</td>
+</tr>
+<tr>
+<td>文件拷贝</td>
+<td>gulp-copy</td>
+</tr>
+<tr>
+<td>文件替换</td>
+<td>gulp-replace</td>
+</tr>
+<tr>
+<td>JS压缩</td>
+<td>gulp-uglify</td>
+</tr>
+<tr>
+<td>语法检查</td>
+<td>gulp-jshint</td>
+</tr>
+<tr>
+<td>图片压缩</td>
+<td>gulp-imagemin</td>
+</tr>
+<tr>
+<td>CSS压缩</td>
+<td>gulp-cssmin</td>
+</tr>
+<tr>
+<td>添加注释</td>
+<td>gulp-wrapper</td>
+</tr>
+<tr>
+<td>transport格式化</td>
+<td>gulp-seajs-transport</td>
+</tr>
+</tbody>
+</table>
+<h4 id="压缩JS-gulp-uglify"><a href="#压缩JS-gulp-uglify" class="headerlink" title="压缩JS gulp-uglify"></a>压缩JS <a href="https://www.npmjs.com/package/gulp-uglify" target="_blank" rel="external">gulp-uglify</a></h4><p>举个栗子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">var gulp = require(&quot;gulp&quot;),</div><div class="line">    uglify = require(&quot;gulp-uglify&quot;);</div><div class="line">gulp.task(&quot;uglify&quot;,function()&#123;</div><div class="line">    gulp.src([&quot;src/common/*.js&quot;])</div><div class="line">    .pipe(uglify(&#123;</div><div class="line">        mangle: &#123;</div><div class="line">        	except: [&quot;define&quot;,&quot;require&quot;,&quot;module&quot;,&quot;exports&quot;]</div><div class="line">        &#125;,</div><div class="line">        output: &#123;</div><div class="line">                max_line_len: 100        //每行最多100个字符</div><div class="line">        &#125;</div><div class="line">    &#125;))</div><div class="line">    .pipe(gulp.dest(&quot;min/common&quot;))</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>上例中，将src/common/目录下的js进行压缩，压缩文件放到min/common/目录中。参数<strong>mangle</strong>，可以像上例中那样排除一些关键字以适用sea.js模块管理，或者赋值“false”，在压缩过程中跳过函数名使其不被压缩。</p>
+<p>max_line_len参数设置每行允许的最多字符量，不设置这个参数js文件一般被压缩成一行注释，一行代码两行，这样不是挺好，为什么需要这个参数？设置这个参数不会对压缩效率产生太大的影响（当然数值不能太小），但是却能极大方便debug，无论是浏览器还是其他提示工具，错误提示一般都是显示出错的行数，压缩成一行的代码出现提示永远是第一行……设置这个参数就好多了。</p>
+<p><img src="http://7xo5yo.com1.z0.glb.clouddn.com/gulp-mangle.png" alt="mangle"></p>
+<h4 id="合并-gulp-concat"><a href="#合并-gulp-concat" class="headerlink" title="合并 gulp-concat"></a>合并 <a href="https://www.npmjs.com/package/gulp-concat" target="_blank" rel="external">gulp-concat</a></h4><p>例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">var gulp = require(&quot;gulp&quot;),</div><div class="line">    concat = require(&quot;gulp-concat&quot;),</div><div class="line">    uglify = require(&quot;gulp-uglify&quot;);</div><div class="line">gulp.task(&quot;scripts&quot;,function()&#123;</div><div class="line">    gulp.src([&quot;src/common/reqData.js&quot;,&quot;src/common/util.js&quot;])</div><div class="line">    .pipe(uglify())</div><div class="line">    .pipe(concat(&quot;base.min.js&quot;,&#123;</div><div class="line">        newLine: &quot;\r\n\r\n&quot;</div><div class="line">    &#125;))</div><div class="line">    .pipe(gulp.dest(&quot;min/common&quot;))</div><div class="line"></div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>上例中，将src/common/目录下reqData.js和util.js压缩后合并成一个文件base.min.js，参数的作用是在两个文件之间添加两个换行。</p>
+<h2 id="五、Stream"><a href="#五、Stream" class="headerlink" title="五、Stream"></a>五、Stream</h2><p>类似于*nix将几乎所有的设备抽象为文件一样，Node将文件访问、输入输出、http连接等几乎所有I/O都抽象成了Stream。</p>
+<h5 id="Linux中管道的概念"><a href="#Linux中管道的概念" class="headerlink" title="Linux中管道的概念"></a>Linux中管道的概念</h5><p><img src="http://7xo5yo.com1.z0.glb.clouddn.com/linux-pipe.png" alt="管道命令的处理示意图"></p>
+<p>通过管道将stdout导入到stdin。command1的正确输出（stand output）作为command2的输入，然后command2的输出作为command3的输入，command1、2的输出不会显示，command3的运行结果会输出。</p>
+<p>可以类比理解。shell中的“|”符号和gulp中的pipe()方法作用相同。</p>
+<p><img src="http://7xo5yo.com1.z0.glb.clouddn.com/gulp.png" alt="gulp翻译"></p>
+<h2 id="六、与Grunt比较"><a href="#六、与Grunt比较" class="headerlink" title="六、与Grunt比较"></a>六、与Grunt比较</h2><p><img src="http://7xo5yo.com1.z0.glb.clouddn.com/gulp-vs-grunt.jpg" alt="与Grunt对比"></p>
+<p>比Grunt配置少配置简单、运行速度快</p>
+<ul>
+<li>不生成中间文件</li>
+</ul>
+<p>Gulp基于node.js的Stream机制。每个插件不能单独使用，依靠组合发挥作用，就像一条流水线，上一道工序的产出交给下一道工序，效率高。</p>
+<p>Grunt基于文件，很多操作都要需要生成一些中间文件，这些文件在任务完成后就没用了，需要删掉。文件操作时间消耗多，还有无用文件产生。gulp配置代码量相应的也会少。</p>
+<ul>
+<li>配置和运行在一起</li>
+</ul>
+<p>变量的声明和使用挨在一起最方便。但是Gruntfile中，配置task和调用一般都离得很远，尤其是配置文件比较大的时候。</p>
+<ul>
+<li>插件配置语法基本相同</li>
+</ul>
+<p>Grunt的很多插件的配置规则有一定差别，有的看起来还有些怪异。Gulp插件配置规则基本都一样。（插件方法调用，第一个参数是文件，第二个是配置json。）</p>
+<ul>
+<li>每个插件只专注于做一件事情</li>
+</ul>
+<p>Gulp中每个插件单一职责，每个插件的配置就比较简单。</p>
+<p>Grunt中每个插件要配置一坨。</p>
+<h2 id="七、实践对比"><a href="#七、实践对比" class="headerlink" title="七、实践对比"></a>七、实践对比</h2><p>配置文件Gruntfile.js</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div></pre></td><td class="code"><pre><div class="line">module.exports = function(grunt) &#123;</div><div class="line">    grunt.initConfig(&#123;</div><div class="line">        pkg:grunt.file.readJSON(&quot;package.json&quot;),</div><div class="line">        // 文件合并</div><div class="line">        concat:&#123;</div><div class="line">            options:&#123;</div><div class="line">                separator:&quot;\n&quot;,</div><div class="line">                stripBanners:true</div><div class="line">            &#125;,</div><div class="line"></div><div class="line">            combine:&#123;</div><div class="line">                files:[</div><div class="line">                    &#123;</div><div class="line">                        src:[&quot;src/lib/*.js&quot;],   // 合并库文件</div><div class="line">                        dest:&quot;build/lib.js&quot;</div><div class="line">                    &#125;,</div><div class="line">                    &#123;</div><div class="line">                        src:[&quot;src/combine/shake.common.js&quot;,&quot;src/combine/shake.data.js&quot;,&quot;src/combine/shake.list.js&quot;,&quot;src/combine/shake.share.js&quot;,&quot;src/combine/shake.card.js&quot;,&quot;src/combine/shake.detail.js&quot;],        // 合并业务代码</div><div class="line">                        dest:&quot;build/business.js&quot;</div><div class="line">                    &#125;,&#123;</div><div class="line">                        src:[&quot;src/combine/shake.config.js&quot;],   // 合并库文件</div><div class="line">                        dest:&quot;build/config.js&quot;</div><div class="line">                    &#125;</div><div class="line">                ]</div><div class="line">            &#125;</div><div class="line">        &#125;,</div><div class="line"></div><div class="line">        uglify:&#123;</div><div class="line">            lib:&#123;</div><div class="line">                src:[&quot;build/lib.js&quot;],</div><div class="line">                dest:&quot;min/&lt;%=pkg.version %&gt;/card.lib.min.js&quot;</div><div class="line">            &#125;,</div><div class="line"></div><div class="line">            business:&#123;</div><div class="line">                src:[&quot;build/business.js&quot;],</div><div class="line">                dest:&quot;min/&lt;%=pkg.version %&gt;/card.min.js&quot;</div><div class="line">            &#125;,</div><div class="line"></div><div class="line">            config:&#123;</div><div class="line">                src:[&quot;build/config.js&quot;],</div><div class="line">                dest:&quot;min/&lt;%=pkg.version %&gt;/card.config.min.&lt;%=pkg.date %&gt;.js&quot;</div><div class="line">            &#125;</div><div class="line">        &#125;,</div><div class="line">        clean:[&quot;build&quot;]</div><div class="line">    &#125;);</div><div class="line">    </div><div class="line">    grunt.loadNpmTasks(&apos;grunt-contrib-uglify&apos;);</div><div class="line">    grunt.loadNpmTasks(&apos;grunt-contrib-clean&apos;);</div><div class="line">    grunt.loadNpmTasks(&apos;grunt-contrib-concat&apos;);</div><div class="line">    grunt.registerTask(&apos;default&apos;, [&apos;concat&apos;, &apos;uglify&apos;,&apos;clean&apos;]);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>完成相同功能的，gulpfile.js </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">var gulp = require(&quot;gulp&quot;),</div><div class="line">	concat = require(&quot;gulp-concat&quot;),</div><div class="line">	uglify = require(&quot;gulp-uglify&quot;),</div><div class="line">	pkg = require(&quot;./package.json&quot;);</div><div class="line"></div><div class="line">gulp.task(&quot;lib&quot;,function()&#123;</div><div class="line">	return gulp.src([&quot;src/lib/*.js&quot;])</div><div class="line">	.pipe(concat(&quot;card.lib.min.js&quot;,&#123;newLine: &quot;\n&quot;&#125;))</div><div class="line">	.pipe(uglify())</div><div class="line">	.pipe(gulp.dest(&quot;min/&quot; + pkg.version))</div><div class="line">&#125;);</div><div class="line"></div><div class="line">gulp.task(&quot;business&quot;,function()&#123;</div><div class="line">	return gulp.src([&quot;src/combine/*.js&quot;,&quot;!src/combine/shake.config.js&quot;])</div><div class="line">	.pipe(concat(&quot;card.min.js&quot;,&#123;newLine: &quot;\n&quot;&#125;))</div><div class="line">	.pipe(uglify())</div><div class="line">	.pipe(gulp.dest(&quot;min/&quot; + pkg.version))</div><div class="line">&#125;);</div><div class="line"></div><div class="line">gulp.task(&quot;config&quot;,function()&#123;</div><div class="line">	return gulp.src([&quot;src/combine/shake.config.js&quot;])</div><div class="line">	.pipe(concat(&quot;card.config.min.&quot; + pkg.date + &quot;.js&quot;,&#123;newLine: &quot;\n&quot;&#125;))</div><div class="line">	.pipe(uglify())</div><div class="line">	.pipe(gulp.dest(&quot;min/&quot; + pkg.version))</div><div class="line">&#125;);</div><div class="line"></div><div class="line">gulp.task(&quot;default&quot;,[&quot;lib&quot;,&quot;business&quot;,&quot;config&quot;]);</div></pre></td></tr></table></figure>
+<h3 id="八、参考"><a href="#八、参考" class="headerlink" title="八、参考"></a>八、参考</h3><p><a href="http://www.w3ctech.com/topic/134" target="_blank" rel="external">Gulp开发教程</a></p>
+<p><a href="http://colobu.com/2014/11/17/gulp-plugins-introduction/" target="_blank" rel="external">gulp plugin 插件介绍</a></p>
+<p><a href="http://segmentfault.com/a/1190000000357044" target="_blank" rel="external">Node中的流</a></p>
+<p><a href="http://linux.vbird.org/linux_basic/0320bash.php#pipe" target="_blank" rel="external">鸟哥 管道命令</a></p>
+<p><a href="http://www.jianshu.com/p/3779f708f5d7" target="_blank" rel="external">Gulp挑战Grunt背后的哲学</a></p>
+<p><a href="http://yijiebuyi.com/blog/d64c5d28eb539941bf3b855d333850cc.html" target="_blank" rel="external">gulp传参数 实现定制化执行任务</a></p>
+<p><a href="https://www.npmjs.com/package/yargs" target="_blank" rel="external">npm yargs</a></p>
+<p><a href="http://stackoverflow.com/questions/23023650/is-it-possible-to-pass-a-flag-to-gulp-to-have-it-run-tasks-in-different-ways" target="_blank" rel="external">pass a flag to gulp to have it run tasks in different ways</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;http://7xo5yo.com1.z0.glb.clouddn.com/gulp%20logo.png&quot; alt=&quot;logo&quot;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;前端构建工具&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;基于node.js&lt;/p&gt;
+&lt;/li&gt;
+
+    
+    </summary>
+    
+    
+      <category term="前端" scheme="http://suibobuzhuliu.github.io/tags/%E5%89%8D%E7%AB%AF/"/>
+    
+      <category term="gulp" scheme="http://suibobuzhuliu.github.io/tags/gulp/"/>
+    
+      <category term="Grunt" scheme="http://suibobuzhuliu.github.io/tags/Grunt/"/>
+    
+      <category term="构建工具" scheme="http://suibobuzhuliu.github.io/tags/%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>获取跨域数据方法——JSONP</title>
+    <link href="http://suibobuzhuliu.github.io/2015/12/20/%E8%8E%B7%E5%8F%96%E8%B7%A8%E5%9F%9F%E6%95%B0%E6%8D%AE%E6%96%B9%E6%B3%95%E2%80%94%E2%80%94JSONP/"/>
+    <id>http://suibobuzhuliu.github.io/2015/12/20/获取跨域数据方法——JSONP/</id>
+    <published>2015-12-20T15:31:45.000Z</published>
+    <updated>2016-10-22T07:55:09.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>jsonp是跨域解决方案之一，要了解jsonp，肯定要从浏览器安全和 <em>同源策略</em> 说起。</p>
+<p>同源策略（Same Origin Policy）是一种约定规范，是浏览器最基本最核心的安全功能。<br><a id="more"></a></p>
+<h2 id="同源策略"><a href="#同源策略" class="headerlink" title="同源策略"></a>同源策略</h2><p>jsonp是跨域解决方案之一，要了解jsonp，肯定要从浏览器安全和 <em>同源策略</em> 说起。</p>
+<p>同源策略（Same Origin Policy）是一种约定规范，是浏览器最基本最核心的安全功能。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">同源策略限制了一个源（origin）中加载文本或脚本与其它源（origin）中资源的交互方式。</div></pre></td></tr></table></figure>
+<p>###同源策略大致包含以下方面：</p>
+<p>####1. 源的定义，DOM层面的约束</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">如果两个页面拥有相同的协议（protocol），端口，和主机，那么这两个页面就属于同一个源（origin）。</div></pre></td></tr></table></figure>
+<p>不同源的页面会加载失败。对于一个页面，页面内存放的JavaScript文件的域并不重要，重要的是加载JavaScript的页面所在的域是什么。（js是静态资源，它的引入加载不受同源策略约束，参考下面一段）</p>
+<p>例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">a.com/hello.html中的一行代码：</div><div class="line">&lt;script src=&quot;http://b.com/b.js&quot;&gt;&lt;/script&gt;</div></pre></td></tr></table></figure>
+<p>a.com下的helloe.html加载了b.com上的b.js，但是b.js是在a.com页面中，b.js的Origin就是a.com而不是b.com。</p>
+<p>####2. 跨域访问，静态资源层面的约束</p>
+<ul>
+<li>允许跨域写操作。例如表单提交</li>
+<li>允许跨域资源嵌入。</li>
+<li>不允许跨域读操作。例如，XMLHttpRequest对象（Ajax操作）不能访问跨域资源。可以通过内嵌资源来进行读取，这也是JSONP跨域技术的由来。</li>
+</ul>
+<p><strong>可以进行跨域资源嵌入的内容：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;、&lt;link&gt;、&lt;img&gt;、&lt;video&gt;、&lt;audio&gt;、&lt;iframe&gt;、&lt;frame&gt;这些带“src”或“href”属性的标签都可以跨域加载资源，而不受同源策略的限制。</div></pre></td></tr></table></figure>
+<p>####3. XMLHttpRequest跨域访问规范</p>
+<p>XMLHttpRequest通过目标域返回的HTTP头来授权是否允许跨域访问，因为<strong>HTTP头对于js来说是无法控制的</strong>，这是这个跨域方案的信任基础。</p>
+<p>如果目标域HTTP头返回<strong>Access-Control-Allow-Origin</strong>，就是允许跨域访问。</p>
+<p>##JSONP原理</p>
+<h4 id="JSON和JSONP的关系"><a href="#JSON和JSONP的关系" class="headerlink" title="JSON和JSONP的关系"></a>JSON和JSONP的关系</h4><p>JSON(JavaScript Object Notation)是一种轻量级的数据交换格式，用于在浏览器和服务器之间交换信息。</p>
+<p>JSONP(JSON With Padding)打包在函数调用中的JSON，或者叫包裹的JSON。</p>
+<p><strong>JSON是一种数据格式，JSONP是一种数据调用方式。</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">//JSON</div><div class="line">&#123;</div><div class="line">	&quot;name&quot;: &quot;bobo&quot;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//JSONP</div><div class="line">callback(&#123;</div><div class="line">	&quot;name&quot;: &quot;bobo&quot;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>通常非跨域情况下，一个web应用获取数据并使用的例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&lt;script type=&quot;text/javascript&quot;&gt;</div><div class="line">//ajax获取数据</div><div class="line">var xhr = new XMLHttpRequest();</div><div class="line">xhr.open(&quot;GET&quot;,&quot;http://.../remote.json&quot;);</div><div class="line">xhr.readystatechange = function()&#123;</div><div class="line">	if(xhr.readyState == 4 &amp;&amp; xhr.status == 200)&#123;</div><div class="line">		showInfo(JSON.parse(responseText));</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//业务函数</div><div class="line">function showInfo(data)&#123;</div><div class="line">	alert(&quot;name: &quot; + data.name + &quot;,age: &quot; + data.age);</div><div class="line">&#125;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
+<p>面对跨域的资源，利用静态资源加载不受同源策略限制，前端和后端就CGI约定一个回调函数的参数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">//业务函数</div><div class="line">function showInfo(data)&#123;</div><div class="line">	alert(&quot;name: &quot; + data.name + &quot;,age: &quot; + data.age);</div><div class="line">&#125;</div><div class="line"></div><div class="line">// 动态插入脚本</div><div class="line">var script = document.createElement(&apos;script&apos;);</div><div class="line">script.setAttribute(&apos;src&apos;, &quot;http://.../remote.json?callback=showInfo&quot;); </div><div class="line">document.getElementsByTagName(&apos;head&apos;)[0].appendChild(script);</div><div class="line"></div><div class="line">//remote.json的内容是</div><div class="line">showInfo(&#123;&quot;name&quot;:&quot;bobo&quot;,&quot;age&quot;:&quot;17&quot;&#125;);</div></pre></td></tr></table></figure>
+<p>等价于：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;script type=&quot;text/javascript&quot;&gt;</div><div class="line">	function showInfo(data)&#123;</div><div class="line">		//	</div><div class="line">	&#125;</div><div class="line">&lt;/script&gt;</div><div class="line">&lt;script type=&quot;text/javascript&quot;&gt;</div><div class="line">	showInfo(&#123;&quot;name&quot;:&quot;bobo&quot;,&quot;age&quot;:&quot;17&quot;&#125;)</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
+<p>这就是JSONP获取跨域数据的方式，通过<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">虽然jQuery、zepto等库的API中使用JSONP跨域获取数据只是在$.ajax()中增添改变几个参数，它们的使用方式看起来极为相像，但是**JSONP并不是AJAX**，它们两个是获取数据的完全不同的两种实现方式。</div><div class="line"></div><div class="line">jQuery、zepto中封装的jsonp的实现方式大致是：</div></pre></td></tr></table></figure></p>
+<p>$.ajax = function(settings){</p>
+<pre><code>//...
+
+if(&quot;jsonp&quot; == settings.dataType){
+    $.ajaxJSONP(settings);
+}
+</code></pre><p>}</p>
+<p>$.ajaxJSONP = function(options){<br>    var script = document.createElement(“script”);</p>
+<pre><code>$(script).on(&quot;load&quot;,function(e){
+    $(script).off().remove()//加载成功后，删除动态增加的&lt;script&gt;标签
+
+    ajaxSuccess(responseData[0],xhr,options);
+});
+
+window[callbackName] = function(){
+    responseData = arguments;
+}
+
+script.src = &quot;http://...&quot;;
+document.head.appendChild(script)
+</code></pre><p>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">在jQuery和zepto中使用JSONP：</div></pre></td></tr></table></figure></p>
+<p>$.ajax({<br>                url: “http://…”,<br>                dataType: “jsonp”,<br>                jsonp: “callback”,<br>                success: function(json){<br>                    //…<br>                    }<br>                },<br>                error: function(){<br>                        //…<br>                }<br>            })<br>```</p>
+<p>##参考</p>
+<ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/Security/Same-origin_policy" target="_blank" rel="external">JavaScript的同源策略|MDN</a></li>
+<li><a href="http://changsiyuan.github.io/2015/10/30/cross-domain/" target="_blank" rel="external">同源策略详解</a></li>
+<li><a href="http://www.html-js.com/article/1882" target="_blank" rel="external">原生JS实现AJAX、JSONP及DOM加载完成事件</a></li>
+<li><a href="http://www.cnblogs.com/kaixinbocai/p/4109223.html" target="_blank" rel="external">JSONP原理</a></li>
+<li>《白帽子讲web安全》</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;jsonp是跨域解决方案之一，要了解jsonp，肯定要从浏览器安全和 &lt;em&gt;同源策略&lt;/em&gt; 说起。&lt;/p&gt;
+&lt;p&gt;同源策略（Same Origin Policy）是一种约定规范，是浏览器最基本最核心的安全功能。&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="JSONP" scheme="http://suibobuzhuliu.github.io/tags/JSONP/"/>
+    
+      <category term="同源策略" scheme="http://suibobuzhuliu.github.io/tags/%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5/"/>
+    
+      <category term="跨域" scheme="http://suibobuzhuliu.github.io/tags/%E8%B7%A8%E5%9F%9F/"/>
+    
+      <category term="AJAX" scheme="http://suibobuzhuliu.github.io/tags/AJAX/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>HTTP协议</title>
+    <link href="http://suibobuzhuliu.github.io/2015/11/29/HTTP%E5%8D%8F%E8%AE%AE/"/>
+    <id>http://suibobuzhuliu.github.io/2015/11/29/HTTP协议/</id>
+    <published>2015-11-29T08:27:21.000Z</published>
+    <updated>2016-10-22T07:55:09.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>协议特点、请求响应报文头部内容、POST与GET的区别，关于HTTP协议总结摘抄了一些比较重要面试也经常问涉及到的点吧，温习下基础知识，希望能帮助以后排查问题。<br><a id="more"></a></p>
+<p>OSI 七层模型</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>层级</th>
+<th>名称</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>七</td>
+<td>应用层</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>六</td>
+<td>会话层</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>五</td>
+<td>表示层</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>四</td>
+<td>会话层</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>三</td>
+<td>网络层</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>二</td>
+<td>数据链路层</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>一</td>
+<td>物理层</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>HTTP（HyperText Transfer Protocol）超文本传输协议，是一个应用层的面向的协议。</p>
+<h4 id="主要特点"><a href="#主要特点" class="headerlink" title="主要特点"></a>主要特点</h4><ol>
+<li>支持客户/服务器模式</li>
+<li>简单快速。客户想服务器请求服务时，只需传送请求方法和路径。由于HTTP协议简单，使得HTTP服务器的程序规模小，因而通信速度很快。</li>
+<li>灵活。HTTP允许传输任意类型的数据对象。</li>
+<li>无连接。含义是限制每次连接值处理一个请求。服务器处理完客户端的请求，并收到客户的应答后，即断开连接。采用这种方式可以节省传输时间。</li>
+<li>无状态。是指协议对于事务处理没有记忆能力。缺少状态意味着如果后续处理需要前面的信息，则它必须重传，这样可能导致每次连接传送的数据量增大。另一方面，在服务器不需要先前信息时它的应答就较快。</li>
+</ol>
+<h2 id="一、HTTP请求"><a href="#一、HTTP请求" class="headerlink" title="一、HTTP请求"></a>一、HTTP请求</h2><p>http请求由三部分组成：请求行、消息报头、请求正文</p>
+<h3 id="请求行"><a href="#请求行" class="headerlink" title="请求行"></a>请求行</h3><p>格式如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">请求方法	URI			 HTTP版本号		回车和换行</div><div class="line">Method	 Request-URI  HTTP-Version     CRLF</div></pre></td></tr></table></figure>
+<p>举个栗子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">GET /images/logo.gif HTTP/1.1</div></pre></td></tr></table></figure>
+<h4 id="请求方法"><a href="#请求方法" class="headerlink" title="请求方法"></a>请求方法</h4><p>HTTP/1.1协议中共定义了八种方法来表明Request-URI指定的资源的不同操作方式：</p>
+<ul>
+<li>GET<br>请求获取Request-URI所标识的资源</li>
+<li>POST<br>向指定资源提交数据进行处理请求（例如提交表达或者上传文件）。POST请求可能会导致新的资源的建立和已有资源的修改</li>
+<li>HEAD<br>请求获取由Request-URI所标识的资源的响应消息报头</li>
+<li>PUT<br>请求服务器存储一个资源，并用Request-URI作为其标识</li>
+<li>DELETE<br>请求服务器删除Requ-URI所标识的资源的</li>
+<li>Trace<br>请求服务器回送收到的请求信息，主要用于测试或诊断</li>
+<li>CONNECT<br>保留将来使用</li>
+<li>OPTIONS<br>请求查询服务器的性能，或者查询与资源相关的选项和需求</li>
+</ul>
+<p>方法名是区分大小写的。</p>
+<h4 id="get-和-post的区别"><a href="#get-和-post的区别" class="headerlink" title="get 和 post的区别"></a>get 和 post的区别</h4><p>http协议定义的最基本常用的四个方法分别是GET,POST,PUT,DELETE。分别对应这对一个资源的查，该，增，删。<br>GET一般用户获取/查询资源信息，POST一般用于更新资源信息。</p>
+<ol>
+<li>传参方式不同。GET提交的数据放在URL中，POST方法是把提交的数据放在HTTP包的Body中。</li>
+<li>传输数据的大小。GET提交的数据有大小限制，因为各浏览器与各Web Server对URL均有长度的限制。POST方法提交的数据理论上没有限制，但是服务器也会受服务器配置的影响。</li>
+<li>安全性。POST的安全性要比GET高。例如通过GET提交数据，用户名和密码就会以明文的方式出现在URL上，登陆页可能被浏览器缓存，历史记录中也有记录，此外使用GET提交数据还可能会造成CSRF攻击。</li>
+</ol>
+<h3 id="消息报头"><a href="#消息报头" class="headerlink" title="消息报头"></a>消息报头</h3><h3 id="请求正文"><a href="#请求正文" class="headerlink" title="请求正文"></a>请求正文</h3><h2 id="二、HTTP响应"><a href="#二、HTTP响应" class="headerlink" title="二、HTTP响应"></a>二、HTTP响应</h2><p>HTTP响应由三个部分组成：状态行、消息报头、响应正文</p>
+<h3 id="状态行"><a href="#状态行" class="headerlink" title="状态行"></a>状态行</h3><p>格式如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">HTTP版本号			状态码		状态码的文本描述 回车换行</div><div class="line">HTTP-Version Status-Code	Reason-Phrase	 CRLF</div></pre></td></tr></table></figure>
+<h4 id="状态码"><a href="#状态码" class="headerlink" title="状态码"></a>状态码</h4><p>状态码有三位数字组成，第一个数字定义了响应的类别，且有五种可能取值：<br>1xx：指示信息——表示请求已被服务器接收，继续处理<br>2xx：成功——表示请求已被成功接收、理解、并接受<br>3xx：重定向——要完成请求必须进行更进一步的操作<br>4xx：客户端错误——请求由词法错误或请求无法被执行<br>5xx：服务器端错误——服务器未能实现合法的请求</p>
+<ul>
+<li>常见状态码<br>200        OK    客户端请求成功<br>400        Bad Request 客户端请求语法错误，不能被服务器所理解<br>401        Unauthorized 请求未经授权，这个状态码必须和WWW-Authenticate报头域一起使用<br>403        Forbidden    服务器收到请求，但是拒绝提供服务<br>404        Not    Found    请求资源不存在<br>500        Internal Server Error    服务器发生不可预期的错误<br>502        Bad Gateway    网关失败<br>503        Server Unavailable 服务器当前不能处理客户端的请求，一段时间后，可能恢复正常</li>
+</ul>
+<h3 id="响应报头"><a href="#响应报头" class="headerlink" title="响应报头"></a>响应报头</h3><h3 id="响应正文"><a href="#响应正文" class="headerlink" title="响应正文"></a>响应正文</h3><p>就是资源内容</p>
+<h2 id="三、-HTTP报头"><a href="#三、-HTTP报头" class="headerlink" title="三、 HTTP报头"></a>三、 HTTP报头</h2><p>报头可分为种：普通报头、请求报头、响应报头</p>
+<h3 id="1-普通报头"><a href="#1-普通报头" class="headerlink" title="1. 普通报头"></a>1. 普通报头</h3><p>并不用于被传输的实体，只用于传输的消息</p>
+<ul>
+<li>Cache-Control</li>
+</ul>
+<p>用于指定缓存的指令，缓存指令是单向（响应中出现的缓存指令在请求中未必会出现）、独立的（一个消息的缓存指令不会影响另一个消息处理的缓存机制）。<br>请求时指令包括：no-cache、no-store、max-age、max-stale、min-fresh、only-if-cached；响应时的指令：public、private、no-cache、no-store、no-transform、must-revalidate、proxy-revalidate、max-age、s-maxage</p>
+<p>用法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Cache-Control: no-cache		所有内容都不会被缓存</div></pre></td></tr></table></figure>
+<ul>
+<li>Date</li>
+</ul>
+<p>消息产生的日期和时间</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Date: Sat, 11 Feb 2012 11:37:25 GMT</div></pre></td></tr></table></figure>
+<h3 id="2-请求报头"><a href="#2-请求报头" class="headerlink" title="2. 请求报头"></a>2. 请求报头</h3><p>客户端向服务器传递请求的附加信息以及客户端自身的信息。</p>
+<ul>
+<li>Accept开头的一坨</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Accept: image/gif //指定客户端接受哪些类型的信息</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Accept-Charset: gb2312	//指定可接受字符集，缺省是都接受</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Accept-Encoding: gzip.deflate.	//内容编码，缺省是都接受</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Accept-Lanaguage: zh-cn		//指定自然语言</div></pre></td></tr></table></figure>
+<ul>
+<li>Authorization</li>
+</ul>
+<p>主要用于证明客户端有权查看某个资源。</p>
+<ul>
+<li>HOST</li>
+</ul>
+<p>主机 + 端口号，通常是从URI中提取的。</p>
+<ul>
+<li>User-Agent</li>
+</ul>
+<p>将操作系统、浏览器及其它属性传给服务器。</p>
+<h3 id="3-响应报头"><a href="#3-响应报头" class="headerlink" title="3. 响应报头"></a>3. 响应报头</h3><p>传递不能放在状态行中的附加响应信息，以及关于服务器的信息和对Request-URI所表示的资源进行下一步访问的信息。</p>
+<ul>
+<li>Location</li>
+</ul>
+<p>重定向接受者到一个新的位置。常用在更换域名的适合。</p>
+<ul>
+<li>Server</li>
+</ul>
+<p>与请求报头中的User-Agent相对应，包含了服务器信息</p>
+<h3 id="4-实体（Entity）报头"><a href="#4-实体（Entity）报头" class="headerlink" title="4. 实体（Entity）报头"></a>4. 实体（Entity）报头</h3><p>请求和响应都可以传送一个实体，一个实体由实体头域+实体正文组成。</p>
+<ul>
+<li>Content 开头的一坨</li>
+</ul>
+<p>Content-Encodng、Content-Language、Content-Length、Content-Type</p>
+<p>用法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Content-Type: text/html; charset=utf-8</div></pre></td></tr></table></figure>
+<ul>
+<li>ETag</li>
+</ul>
+<p>和request header的If-None-Match配合使用</p>
+<p>用法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ETag: &quot;03f2b33c0bfcc1:0&quot;</div></pre></td></tr></table></figure>
+<ul>
+<li>Expires</li>
+</ul>
+<p>响应过期的日期和时间。代理服务器或浏览器可以根据这个来更新缓存，缩短响应时间。</p>
+<p>用法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Expires: Thu, 15 Sep 2015 16:11:12 GMT</div></pre></td></tr></table></figure>
+<ul>
+<li>Last-Modified</li>
+</ul>
+<p>指示资源的最后修改日期和时间。</p>
+<p>用法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Last-Modified: Wed, 21 Dec 2015 16:13:20 GMT</div></pre></td></tr></table></figure>
+<h3 id="5-Transport-头域"><a href="#5-Transport-头域" class="headerlink" title="5. Transport 头域"></a>5. Transport 头域</h3><h4 id="Connection"><a href="#Connection" class="headerlink" title="Connection"></a>Connection</h4><ul>
+<li>Connection: keep-alive</li>
+</ul>
+<p>当一个网页打开完成后，客户端和服务器之间用于传输HTTP数据的TCP链接不会关闭，如果客户端再次访问这个服务器上的网页，会继续使用这一条已经建立的连接。</p>
+<ul>
+<li>Connection: close</li>
+</ul>
+<p>一个Request完成后，客户端和服务器之间用于传输HTTP数据的TCP连接会关闭，当客户端再次发送Request，需要重新建立TCP连接。</p>
+<ul>
+<li>持续链接</li>
+</ul>
+<p>在HTTP 0.9和1.0使用非持续连接，在非持续连接下，每个TCP只连接一个web对象，链接在每个请求-回应对后都会关闭。HTTP 1.1引入了保持连接机制，不必为每个web对象创建一个新的连接，一个连接可以传送多个请求重复利用。这种持续化显著地减少了请求延迟，因为客户不用在首次请求后再次进行TCP交互确认创建连接。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li><p><a href="https://zh.wikipedia.org/wiki/%E8%B6%85%E6%96%87%E6%9C%AC%E4%BC%A0%E8%BE%93%E5%8D%8F%E8%AE%AE" target="_blank" rel="external">wiki 超文本传输协议</a></p>
+</li>
+<li><p><a href="http://blog.csdn.net/gueter/article/details/1524447" target="_blank" rel="external">HTTP协议详解</a></p>
+</li>
+<li><p><a href="https://www.zybuluo.com/yangfch3/note/167490" target="_blank" rel="external">HTTP协议详解</a></p>
+</li>
+<li><p><a href="http://www.vimer.cn/2010/02/%E7%AE%80%E6%98%8Ehttp%E5%8D%8F%E8%AE%AE.html" target="_blank" rel="external">简明HTTP协议</a></p>
+</li>
+<li><p><a href="http://www.cnblogs.com/henryhappier/archive/2010/10/09/1846554.html" target="_blank" rel="external">URL最大长度问题</a></p>
+</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;协议特点、请求响应报文头部内容、POST与GET的区别，关于HTTP协议总结摘抄了一些比较重要面试也经常问涉及到的点吧，温习下基础知识，希望能帮助以后排查问题。&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="HTTP" scheme="http://suibobuzhuliu.github.io/tags/HTTP/"/>
+    
+      <category term="GET 与 POST" scheme="http://suibobuzhuliu.github.io/tags/GET-%E4%B8%8E-POST/"/>
+    
+      <category term="状态码" scheme="http://suibobuzhuliu.github.io/tags/%E7%8A%B6%E6%80%81%E7%A0%81/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>利用hexo+github搭建静态博客</title>
+    <link href="http://suibobuzhuliu.github.io/2015/11/22/%E5%88%A9%E7%94%A8hexo-github%E6%90%AD%E5%BB%BA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2/"/>
+    <id>http://suibobuzhuliu.github.io/2015/11/22/利用hexo-github搭建静态博客/</id>
+    <published>2015-11-22T12:29:58.000Z</published>
+    <updated>2016-10-22T07:55:09.000Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="http://7xo5yo.com1.z0.glb.clouddn.com/githubhexo.png" alt="logo"></p>
+<p>Hexo 是基于Node.js的一个博客框架，安装部署都恨方便而且还支持Markdown哦，估计你看了教程半个小时就能搭建搞定。工作以来很少花时间在博客上了，博客不仅仅是博客，它是一种总结分享的学习方式，不能总是埋于业务忽略了自身的提升，所以还是要捡起它。<br><a id="more"></a></p>
+<h2 id="一、安装"><a href="#一、安装" class="headerlink" title="一、安装"></a>一、安装</h2><p>在已安装node环境的前提下<br>终端中执行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sudo npm install hexo -g</div><div class="line">sudo nmp install hexo-cli -g</div></pre></td></tr></table></figure>
+<h2 id="二、初始化"><a href="#二、初始化" class="headerlink" title="二、初始化"></a>二、初始化</h2><p>在本地新建一个目录，然后初始化这个目录，然后下载hexo需要的所有文件到这个目录。这里以hexoBlog为例子，它就是之后所有操作所在的目录。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">hexo init &lt;目录&gt;</div><div class="line">cd &lt;目录&gt;</div><div class="line">npm install</div></pre></td></tr></table></figure>
+<h2 id="三、文件及目录"><a href="#三、文件及目录" class="headerlink" title="三、文件及目录"></a>三、文件及目录</h2><h4 id="config-yml"><a href="#config-yml" class="headerlink" title="_config.yml"></a>_config.yml</h4><p>网站的配置信息，全局配置文件</p>
+<h4 id="package-json"><a href="#package-json" class="headerlink" title="package.json"></a>package.json</h4><p>应用程序信息，执行npm install安装hexo相关程序依赖的。安装后可以删除。</p>
+<h4 id="scaffolds"><a href="#scaffolds" class="headerlink" title="scaffolds"></a>scaffolds</h4><p>模板文件夹。</p>
+<h4 id="scripts"><a href="#scripts" class="headerlink" title="scripts"></a>scripts</h4><p>脚本文件夹。</p>
+<h4 id="source"><a href="#source" class="headerlink" title="source"></a>source</h4><p>资源文件夹。</p>
+<h4 id="themes"><a href="#themes" class="headerlink" title="themes"></a>themes</h4><p>主题文件夹。Hexo会根据主题来生成静态页面。</p>
+<h2 id="四、使用"><a href="#四、使用" class="headerlink" title="四、使用"></a>四、使用</h2><p>到目前为止，hexo安装所需的所有安装初始化都完成了。</p>
+<h4 id="创建文章"><a href="#创建文章" class="headerlink" title="创建文章"></a>创建文章</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo new &lt;标题&gt;</div></pre></td></tr></table></figure>
+<p>执行该命令后，在“source/_posts”目录会生成一个md后缀的文件。然后就可以在本地用任何编辑工具进行编辑了，推荐使用支持markdown功能的编辑器（Mac中的MacDown，Win中MarkdownPad 2）。</p>
+<p>注意添加标签的方式：</p>
+<p><img src="http://7xo5yo.com1.z0.glb.clouddn.com/hexo-tags.png" alt="hexo tags"></p>
+<h3 id="本地浏览网站文章"><a href="#本地浏览网站文章" class="headerlink" title="本地浏览网站文章"></a>本地浏览网站文章</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">npm install hexo-server</div><div class="line">hexo server</div></pre></td></tr></table></figure>
+<p>文章编辑好后，执行该命令可以启动服务器，网站在<a href="http://localhost:4000下启动，修改文章后不用重启刷新即可查看修改后页面。" target="_blank" rel="external">http://localhost:4000下启动，修改文章后不用重启刷新即可查看修改后页面。</a></p>
+<h4 id="生成"><a href="#生成" class="headerlink" title="生成"></a>生成</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo generate</div></pre></td></tr></table></figure>
+<p>执行该命令，会生成一个public目录，该目录中是网站页面的静态文件。</p>
+<h4 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h4><p>上一步生成的静态文件目录public，可以拷贝放到服务器目录，然后就能访问了。</p>
+<h5 id="部署到GitHub-Pages"><a href="#部署到GitHub-Pages" class="headerlink" title="部署到GitHub Pages"></a>部署到GitHub Pages</h5><p>在GitHub中创建一个仓库，仓库的名字为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;gihub用户名&gt;.github.io</div></pre></td></tr></table></figure>
+<p>修改_config.yml中部署相关的参数:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">deploy：</div><div class="line">	type: git</div><div class="line">	repo: git@github.com:&lt;GitHub name&gt;/&lt;GitHub name&gt;.github.io.git</div></pre></td></tr></table></figure>
+<p>配置完成后，执行以下命令，public目录内容便被同步到GitHub的库中。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">npm install hexo-deployer-git --save</div><div class="line">hexo deploy</div></pre></td></tr></table></figure>
+<p>访问页面：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;GitHub name&gt;.github.io</div><div class="line">例如：</div><div class="line">suibobuzhuliu.github.io</div></pre></td></tr></table></figure>
+<h2 id="五、参考"><a href="#五、参考" class="headerlink" title="五、参考"></a>五、参考</h2><ul>
+<li><a href="https://hexo.io/zh-cn/" target="_blank" rel="external">hexo官方文档</a></li>
+<li><a href="http://blog.fens.me/hexo-blog-github/" target="_blank" rel="external">Hexo在github上构建免费的Web应用</a></li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;http://7xo5yo.com1.z0.glb.clouddn.com/githubhexo.png&quot; alt=&quot;logo&quot;&gt;&lt;/p&gt;
+&lt;p&gt;Hexo 是基于Node.js的一个博客框架，安装部署都恨方便而且还支持Markdown哦，估计你看了教程半个小时就能搭建搞定。工作以来很少花时间在博客上了，博客不仅仅是博客，它是一种总结分享的学习方式，不能总是埋于业务忽略了自身的提升，所以还是要捡起它。&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="hexo" scheme="http://suibobuzhuliu.github.io/tags/hexo/"/>
+    
+      <category term="GitHub" scheme="http://suibobuzhuliu.github.io/tags/GitHub/"/>
+    
+      <category term="博客" scheme="http://suibobuzhuliu.github.io/tags/%E5%8D%9A%E5%AE%A2/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>前端资源汇总</title>
+    <link href="http://suibobuzhuliu.github.io/2015/11/22/%E5%89%8D%E7%AB%AF%E8%B5%84%E6%BA%90%E6%B1%87%E6%80%BB/"/>
+    <id>http://suibobuzhuliu.github.io/2015/11/22/前端资源汇总/</id>
+    <published>2015-11-22T09:42:21.000Z</published>
+    <updated>2016-10-22T07:55:09.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="社区-组织"><a href="#社区-组织" class="headerlink" title="社区/组织"></a>社区/组织</h2><ul>
+<li><a href="http://www.html5rocks.com/zh/" target="_blank" rel="external">HTML5 ROCKS</a></li>
+<li><a href="https://developer.mozilla.org/zh-CN/" target="_blank" rel="external">MDN</a></li>
+</ul>
+<h2 id="UED团队博客"><a href="#UED团队博客" class="headerlink" title="UED团队博客"></a>UED团队博客</h2><h3 id="腾讯"><a href="#腾讯" class="headerlink" title="腾讯"></a>腾讯</h3><ul>
+<li><a href="http://www.alloyteam.com" target="_blank" rel="external">Alloyteam</a></li>
+<li><a href="http://cdc.tencent.com" target="_blank" rel="external">腾讯CDC</a></li>
+<li><a href="http://isux.tencent.com" target="_blank" rel="external">ISUX</a></li>
+</ul>
+<h3 id="阿里"><a href="#阿里" class="headerlink" title="阿里"></a>阿里</h3><ul>
+<li><a href="http://ued.taobao.org/blog" target="_blank" rel="external">淘宝UED</a></li>
+<li><a href="http://www.aliued.com" target="_blank" rel="external">阿里国际UED</a></li>
+<li><a href="http://www.aliued.cn/" target="_blank" rel="external">阿里UED</a></li>
+</ul>
+<h3 id="百度"><a href="#百度" class="headerlink" title="百度"></a>百度</h3><ul>
+<li><a href="http://ued.baidu.com" target="_blank" rel="external">百度UED</a></li>
+<li><a href="http://fex.baidu.com" target="_blank" rel="external">FEX</a></li>
+</ul>
+<h2 id="开源项目-框架"><a href="#开源项目-框架" class="headerlink" title="开源项目/框架"></a>开源项目/框架</h2>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;社区-组织&quot;&gt;&lt;a href=&quot;#社区-组织&quot; class=&quot;headerlink&quot; title=&quot;社区/组织&quot;&gt;&lt;/a&gt;社区/组织&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.html5rocks.com/zh/&quot; target=&quot;_bla
+    
+    </summary>
+    
+    
+      <category term="前端" scheme="http://suibobuzhuliu.github.io/tags/%E5%89%8D%E7%AB%AF/"/>
+    
+      <category term="UED" scheme="http://suibobuzhuliu.github.io/tags/UED/"/>
+    
+  </entry>
+  
+</feed>

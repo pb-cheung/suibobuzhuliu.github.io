@@ -1,0 +1,46 @@
+<!DOCTYPE html><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><title>HTML5 input类型踩坑记录 | 随啵不逐流</title><link rel="stylesheet" type="text/css" href="/css/normalize.css"><link rel="stylesheet" type="text/css" href="/css/highlight.css"><link rel="stylesheet" type="text/css" href="/css/very-simple.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="alternate" type="application/atom+xml" href="/atom.xml"></head><body><!-- include the sidebar--><!-- include ./includes/sidebar.jade--><!-- Blog title and subtitle--><header><div class="container header"><a id="logo" href="/." class="title">随啵不逐流</a><span class="subtitle">路过了青春我们还拥有什么</span><label id="toggle-menu" for="menu" onclick><i class="fa fa-bars"></i></label></div></header><!-- use checkbox hack for toggle nav-bar on small screens--><input id="menu" type="checkbox"><!-- Navigation Links--><nav id="nav"><div class="container"><a href="/" class="sidebar-nav-item active">Home</a><a href="/archives" class="sidebar-nav-item">Archives</a><a href="/about/" class="sidebar-nav-item">About</a></div></nav><div id="header-margin-bar"></div><!-- gallery that comes before the header--><div class="wrapper"><div class="container post-header"><h1>HTML5 input类型踩坑记录</h1></div></div><div class="wrapper"><div class="container meta"><div class="post-time">2016-05-04</div><div class="post-tags"><a class="post-tag-link" href="/tags/input/">input</a>/<a class="post-tag-link" href="/tags/number/">number</a>/<a class="post-tag-link" href="/tags/type/">type</a></div></div></div><article><div class="container post"><p>HTML5规范为表单input控件引入了更多的类型，而移动浏览器厂商对这些新特性进行了适配，显示不同类型定制的键盘，使用户更容易输入数据。</p>
+<h3 id="1-demo"><a href="#1-demo" class="headerlink" title="1. demo"></a>1. demo</h3><p>我将常用的几个类型（number、tel、email、url、date、time等）放在一起做了一个demo页。</p>
+<p>源码地址：<a href="https://github.com/suibobuzhuliu/blog/tree/master/input" target="_blank" rel="external">https://github.com/suibobuzhuliu/blog/tree/master/input</a></p>
+<p>用Android、iPhone手机浏览器打开该页面并点击input操作后，你会得出结论：安卓5+和iOS对input控件新类型支持都比较好，安卓适配情况渐渐赶上来了。</p>
+<h3 id="2-number类型的一些坑"><a href="#2-number类型的一些坑" class="headerlink" title="2. number类型的一些坑"></a>2. number类型的一些坑</h3><p>在制作一个金额接收框的过程中交互可能有以下要求：</p>
+<ol>
+<li>接收输入为人民币金额，即大于零的浮点数 </li>
+<li>点击input控件进行输入，弹出数字键盘</li>
+<li>输入字符位数有限制，超出限定则不能继续输入</li>
+<li>开头输入“.”，补齐为“0.”</li>
+<li>页面打开input控件自动获得焦点</li>
+</ol>
+<p>比较以下三种类型控件</p>
+<p>type=”text”<br>输入单行字段</p>
+<p>type=”number”<br>用于输入浮点数的控件。</p>
+<p>type=”tel”<br>用于输入电话号码的控件。</p>
+<h4 id="2-1-数字键盘"><a href="#2-1-数字键盘" class="headerlink" title="2.1 数字键盘"></a>2.1 数字键盘</h4><p>这两种类型的控件点击都能弹出数字键盘，但是iOS系统中tel类型弹出的是拨号键盘，不能输入小数点“.”。</p>
+<p>text类型的input是不进行切换的情况下不会直接出现数字键盘。number类型和tel类型会出现数字键盘，Android中表现为呼起系统或安装的第三方输入法工具的数字键盘，iOS系统表现有较大不同，number类型弹出数字键盘，tel类型弹出Safari拨号键盘。<br>如下图分别为number、tel类型：</p>
+<p><img src="http://7xo5yo.com1.z0.glb.clouddn.com/number.jpg" alt="number"></p>
+<p><img src="http://7xo5yo.com1.z0.glb.clouddn.com/tel.jpg" alt="tel"></p>
+<p>结论：<em>text、tel不满足条件1，text不满足条件2，</em></p>
+<h4 id="2-2-输入长度控制"><a href="#2-2-输入长度控制" class="headerlink" title="2.2 输入长度控制"></a>2.2 输入长度控制</h4><p>input控件有个maxlength属性，对text、tel类型有用，number类型并没有什么卵用。可在手机上打开demo页测试。</p>
+<blockquote>
+<p>If the value of the type attribute is text, email, search, password, tel, or url, this attribute specifies the maximum number of characters (in Unicode code points) that the user can enter; for other control types, it is ignored.</p>
+</blockquote>
+<p>maxlength属性text、email、search、password、tel、url这些类型，可以限定最多输入字符。对number类型无效。</p>
+<p>两种hack：</p>
+<p>第一种：pattern属性</p>
+<blockquote>
+<p>A regular expression that the control’s value is checked against. The pattern must match the entire value, not just some subset. Use the title attribute to describe the pattern to help the user. This attribute applies when the value of the type attribute is text, search, tel, url or email; otherwise it is ignored.</p>
+</blockquote>
+<p>用一个正则表达式语句作为输入校验，在提交的时候进行校验，如果不符合规则会在input右下角弹出title属性中的提示信息。必须匹配完整的输入内容，不是部分。适用于text、search、tel、url、email，其他的不适用。（然而移动端浏览器没有提示，PC测试ok的，可把demo页面运行在pc浏览器）</p>
+<p><img src="http://7xo5yo.com1.z0.glb.clouddn.com/pattern.png" alt="pattern模型提示"></p>
+<p>第二种：js动态获取内容长度</p>
+<p>也有问题，小数点的问题无法解决，number类型input控件中非number类型输入length值不增加</p>
+<p>附：<br>demo线上<a href="http://output.jsbin.com/tanoqic" target="_blank" rel="external">链接</a></p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/Input" target="_blank" rel="external">input | MDN</a></p>
+<p><a href="http://www.oschina.net/translate/using-html5-input-types-to-enhance-the-mobile-browsing-experience" target="_blank" rel="external">使用HTML5 input类型提升移动端输入体验</a></p>
+<p><a href="http://stackoverflow.com/questions/18510845/maxlength-ignored-for-input-type-number-in-chrome" target="_blank" rel="external">maxlength ignored for input type=”number” in chrome</a></p>
+<p><a href="http://stackoverflow.com/questions/8354975/how-to-add-maxlength-for-html5-input-type-number-element" target="_blank" rel="external">How to add maxlength for HTML5 input type=”number” element?</a></p>
+<p><a href="http://www.ziqiangxuetang.com/try/tryhtml5_input_pattern/" target="_blank" rel="external">pattern用法线上demo</a></p>
+<p><a href="http://www.qcyoung.com/2015/09/01/type-number%E9%9D%9E%E6%B3%95%E5%80%BC%E7%9A%84%E4%B8%80%E4%BA%9B%E6%8E%A2%E7%A9%B6%E5%8F%8A%E6%8B%93%E5%B1%95/" target="_blank" rel="external">关于表单iput type=”number”非法值时的一些探究及拓展</a></p>
+</div><!-- comment system--><div class="container"><hr></div></article><footer id="footer"><div class="container"><div class="bar"><div class="social"><a href="https://github.com/http://suibobuzhuliu.github.io" target="_blank"><i class="fa fa-github"></i></a><a href="/atom.xml" target="_blank"><i class="fa fa-rss"></i></a></div><div class="footer">© 2016 <a href="/" rel="nofollow">波仔</a>. Powered by <a rel="nofollow" target="_blank" href="https://hexo.io">Hexo</a>. Theme <a target="_blank" href="https://github.com/lotabout/very-simple">very-simple</a>.</div></div></div></footer><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.css"><script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script><script src="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.pack.js"></script><script>$(document).ready(function() {
+    $(".fancybox").fancybox();
+});
+</script></body></html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><title>利用canvas合成多张图片 | 随啵不逐流</title><link rel="stylesheet" type="text/css" href="/css/normalize.css"><link rel="stylesheet" type="text/css" href="/css/highlight.css"><link rel="stylesheet" type="text/css" href="/css/very-simple.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="alternate" type="application/atom+xml" href="/atom.xml"></head><body><!-- include the sidebar--><!-- include ./includes/sidebar.jade--><!-- Blog title and subtitle--><header><div class="container header"><a id="logo" href="/." class="title">随啵不逐流</a><span class="subtitle">路过了青春我们还拥有什么</span><label id="toggle-menu" for="menu" onclick><i class="fa fa-bars"></i></label></div></header><!-- use checkbox hack for toggle nav-bar on small screens--><input id="menu" type="checkbox"><!-- Navigation Links--><nav id="nav"><div class="container"><a href="/" class="sidebar-nav-item active">Home</a><a href="/archives" class="sidebar-nav-item">Archives</a><a href="/about/" class="sidebar-nav-item">About</a></div></nav><div id="header-margin-bar"></div><!-- gallery that comes before the header--><div class="wrapper"><div class="container post-header"><h1>利用canvas合成多张图片</h1></div></div><div class="wrapper"><div class="container meta"><div class="post-time">2016-05-06</div><div class="post-tags"><a class="post-tag-link" href="/tags/canvas/">canvas</a>/<a class="post-tag-link" href="/tags/dataURL/">dataURL</a>/<a class="post-tag-link" href="/tags/合成图片/">合成图片</a></div></div></div><article><div class="container post"><p><img src="http://7xo5yo.com1.z0.glb.clouddn.com/wxpayTimeline.png" alt="合成后的图片"></p>
+<h3 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h3><p>一般合并图片的需求用工具软件处理就行了。要用代码来实现两个图片的合并而且放在前端，某些特殊的场景还是需要的，比如：合成根据不同用户信息合成带图案的二维码，每个用户生成的二维码（前端生成）是不同的。</p>
+<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>在一个canvas上多次调用drawImage函数，分别绘制在canvas中，多次之后canvas中是多个图片合并的效果，然后再调用toDataURL函数将canvas转成dataURL格式的图片。用户长按就能保存了。</p>
+<h3 id="需要注意的点"><a href="#需要注意的点" class="headerlink" title="需要注意的点"></a>需要注意的点</h3><h4 id="canvas必须设置宽度和高度"><a href="#canvas必须设置宽度和高度" class="headerlink" title="canvas必须设置宽度和高度"></a>canvas必须设置宽度和高度</h4><pre><code>var canvas = document.getElementById(&quot;myCanvas&quot;);
+canvas.width = &quot;600&quot;;
+canvas.height = &quot;600&quot;
+</code></pre><p>####报安全性错误<br>如果你的图片url和页面不在同一域下，在调用toDataURL函数的时候就会报安全性错误。chrome中：</p>
+<blockquote>
+<p>Uncaught SecurityError: Failed to execute ‘toDataURL’ on ‘HTMLCanvasElement’: Tainted canvases may not be exported.</p>
+</blockquote>
+<p>Safari中貌似更严格，根域名相同子域不同依然会报错：</p>
+<blockquote>
+<p>Cross-origin image load denied by Cross-Origin Resource Sharing policy.</p>
+</blockquote>
+<p>解决方法：</p>
+<pre><code>img.setAttribute(&quot;crossOrigin&quot;,&quot;anonymous&quot;);
+</code></pre><h4 id="图片载入"><a href="#图片载入" class="headerlink" title="图片载入"></a>图片载入</h4><p>获取图片对象两种方式：</p>
+<ol>
+<li><p>利用js及css选择器获取img元素</p>
+</li>
+<li><p>为每个图片创建一个新的img对象，再赋给其src等参数</p>
+</li>
+</ol>
+<p>用第二种方式的话就要等到img加载完毕再进行canvas其他操作，在img的load事件处理函数中进行操作。否则可能会绘制出空内容。</p>
+<p>发现H5canvas中定位大小相关的参数是：前两个参数是起点坐标，后两个参数是宽高。例如rect、drawImage</p>
+<h3 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h3><p><a href="https://github.com/suibobuzhuliu/blog/tree/master/mergeImgs" target="_blank" rel="external">https://github.com/suibobuzhuliu/blog/tree/master/mergeImgs</a></p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="http://www.loveqiao.com/dom/html5css3/hecheng/" target="_blank" rel="external">Html5 Canvas实现图片合成</a> （非常好的demo）</p>
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/drawImage" target="_blank" rel="external">drawImage() | MDN 配图讲解函数参数用法</a></p>
+<p><a href="http://stackoverflow.com/questions/20424279/canvas-todataurl-securityerror" target="_blank" rel="external">canvas.toDataURL() SecurityError</a></p>
+</div><!-- comment system--><div class="container"><hr></div></article><footer id="footer"><div class="container"><div class="bar"><div class="social"><a href="https://github.com/http://suibobuzhuliu.github.io" target="_blank"><i class="fa fa-github"></i></a><a href="/atom.xml" target="_blank"><i class="fa fa-rss"></i></a></div><div class="footer">© 2016 <a href="/" rel="nofollow">波仔</a>. Powered by <a rel="nofollow" target="_blank" href="https://hexo.io">Hexo</a>. Theme <a target="_blank" href="https://github.com/lotabout/very-simple">very-simple</a>.</div></div></div></footer><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.css"><script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script><script src="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.pack.js"></script><script>$(document).ready(function() {
+    $(".fancybox").fancybox();
+});
+</script></body></html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><title>比Grunt更好用的前端自动化工具--gulp | 随啵不逐流</title><link rel="stylesheet" type="text/css" href="/css/normalize.css"><link rel="stylesheet" type="text/css" href="/css/highlight.css"><link rel="stylesheet" type="text/css" href="/css/very-simple.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="alternate" type="application/atom+xml" href="/atom.xml"></head><body><!-- include the sidebar--><!-- include ./includes/sidebar.jade--><!-- Blog title and subtitle--><header><div class="container header"><a id="logo" href="/." class="title">随啵不逐流</a><span class="subtitle">路过了青春我们还拥有什么</span><label id="toggle-menu" for="menu" onclick><i class="fa fa-bars"></i></label></div></header><!-- use checkbox hack for toggle nav-bar on small screens--><input id="menu" type="checkbox"><!-- Navigation Links--><nav id="nav"><div class="container"><a href="/" class="sidebar-nav-item active">Home</a><a href="/archives" class="sidebar-nav-item">Archives</a><a href="/about/" class="sidebar-nav-item">About</a></div></nav><div id="header-margin-bar"></div><!-- gallery that comes before the header--><div class="wrapper"><div class="container post-header"><h1>比Grunt更好用的前端自动化工具--gulp</h1></div></div><div class="wrapper"><div class="container meta"><div class="post-time">2016-03-31</div><div class="post-tags"><a class="post-tag-link" href="/tags/Grunt/">Grunt</a>/<a class="post-tag-link" href="/tags/gulp/">gulp</a>/<a class="post-tag-link" href="/tags/前端/">前端</a>/<a class="post-tag-link" href="/tags/构建工具/">构建工具</a></div></div></div><article><div class="container post"><p><img src="http://7xo5yo.com1.z0.glb.clouddn.com/gulp%20logo.png" alt="logo"></p>
+<ul>
+<li><p>前端构建工具</p>
+</li>
+<li><p>基于node.js</p>
+</li>
+<li><p>流式</p>
+</li>
+</ul>
+<h2 id="一、安装"><a href="#一、安装" class="headerlink" title="一、安装"></a>一、安装</h2><p>全局安装：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install -g gulp</div></pre></td></tr></table></figure>
+<p>项目目录中安装：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nmp install --save-dev gulp</div></pre></td></tr></table></figure>
+<p>编辑package.json文件，</p>
+<p>或者执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm init</div></pre></td></tr></table></figure>
+<p>生成package.json，然后执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install</div></pre></td></tr></table></figure>
+<h2 id="二、API"><a href="#二、API" class="headerlink" title="二、API"></a>二、API</h2><p>gulp和插件安装完毕后，</p>
+<p>在目录中创建配置文件gulpfile.js。</p>
+<h4 id="gulp-src"><a href="#gulp-src" class="headerlink" title="gulp.src()"></a>gulp.src()</h4><p>指定数据源文件，产生数据流。参数是文件，可以是数组</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gulp.src([&quot;js/**/*.js&quot;,[!js/**/*.min.js]])</div></pre></td></tr></table></figure>
+<h4 id="gulp-dest"><a href="#gulp-dest" class="headerlink" title="gulp.dest()"></a>gulp.dest()</h4><p>将管道的输出写入文件，同事将这些输出继续输出，因此可以多次调用dest方法，将输出写入多个目录。目录不存在则新建。</p>
+<h4 id="gulp-task"><a href="#gulp-task" class="headerlink" title="gulp.task()"></a>gulp.task()</h4><p>用于任务定义。第一个参数是任务名称，第二个参数是任务函数，指定任务具体的操作。</p>
+<p>task方法还可以指定按顺序运行的一组任务，例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gulp.task(&quot;build&quot;,[&quot;css&quot;,&quot;js&quot;,&quot;imgs&quot;]);</div></pre></td></tr></table></figure>
+<p>上例中，定义一个任务build，执行三个子任务“css”、“js”、“imgs”。这些任务不是同时进行的，不能认为“js”任务结束时“css”任务已经结束。</p>
+<p>如果需要确保一个任务在另一个任务结束后执行，可将函数和任务组合结合起来指定依赖关系。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">gulp.task(&quot;css&quot;,[&quot;greet&quot;], function()&#123;</div><div class="line"></div><div class="line">	//</div><div class="line"></div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>上例中，定义“css”任务，执行前检查greet任务是否执行完毕，完毕在调用第三个参数定义的函数。</p>
+<p>default tasks</p>
+<p>执行gulp任务是在命令行中输入：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gulp + taskName</div></pre></td></tr></table></figure>
+<p>如果不加taskName，就会报“Task ‘default’ is not in your gulpfile”，找不着默认任务。最好在配置文件末，写上默认任务，执行起来比较方便。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">gulp.task(&quot;scripts&quot;,function()&#123;</div><div class="line"></div><div class="line">	//...</div><div class="line"></div><div class="line">&#125;);</div><div class="line"></div><div class="line">...</div><div class="line"></div><div class="line"></div><div class="line">gulp.task(&quot;default&quot;, [&quot;scripts&quot;]);</div></pre></td></tr></table></figure>
+<h4 id="gulp-watch"><a href="#gulp-watch" class="headerlink" title="gulp.watch()"></a>gulp.watch()</h4><p>监听文件的状态，文件发生变化执行某些任务。</p>
+<p>用法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">gulp.task(&quot;watch&quot;,function()&#123;</div><div class="line"></div><div class="line">	gulp.watch(&quot;js/src/**/*.js&quot;,[&quot;copy&quot;,&quot;concat&quot;,&quot;uglify&quot;])</div><div class="line"></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>上例中任务数组可以换成回调函数，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">gulp.task(&quot;watch&quot;,function()&#123;</div><div class="line"></div><div class="line">	gulp.watch(&quot;js/src/**/*.js&quot;,function(event)&#123;</div><div class="line"></div><div class="line">		console.log(&quot;Event type: &quot; + event.type + &quot; Event path&quot; + event.path);</div><div class="line"></div><div class="line">	&#125;)</div><div class="line"></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>回调函数中打印事件类型和发生改变文件路径，type值有“added”、“deleted”、“changed”</p>
+<p>gulp.watch可配合LiveReload、BrowserSync使用，实现文件修改浏览器立即刷新等功能</p>
+<h2 id="三、其他高级用法"><a href="#三、其他高级用法" class="headerlink" title="三、其他高级用法"></a>三、其他高级用法</h2><h4 id="gulp-env"><a href="#gulp-env" class="headerlink" title="gulp.env"></a>gulp.env</h4><p>gulp有个env属性可以接受参数，env属性值对应一个对象：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">&#123; _ : [] &#125;</div></pre></td></tr></table></figure>
+<p>“_”属性值默认是空，当指定执行任务时，它的值是任务名。</p>
+<p>例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gulp compress</div></pre></td></tr></table></figure>
+<p>gulp.env是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123; _ : [&quot;compress&quot;]&#125;</div></pre></td></tr></table></figure>
+<p>同理指定多个任务，数组中就有多个值。可以获取这些任务名来执行不同的操作，例如根据任务名不同来修改不同目录</p>
+<h4 id="命令行传参"><a href="#命令行传参" class="headerlink" title="命令行传参"></a>命令行传参</h4><p>△gulp.env接收命令行参数的方式不推荐使用，废弃了。官方推荐的”minimist”也不推荐，推荐使用“yargs”这个插件。</p>
+<p>把env这个例子略过去，直接看yargs的例子。</p>
+<hr>
+<p>用法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gulp --key1 value1 --key2 value2</div></pre></td></tr></table></figure>
+<p>获取方式和上面类似，通过gulp.env</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">gulp.env: &#123; _ : [], key1: value1, key2: value2 &#125;</div></pre></td></tr></table></figure>
+<p>针对参数使用举个例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div></pre></td><td class="code"><pre><div class="line">var gulp = require(&quot;gulp&quot;),</div><div class="line"></div><div class="line">    uglify = require(&quot;gulp-uglify&quot;),</div><div class="line"></div><div class="line">    header = require(&quot;gulp-header&quot;),</div><div class="line"></div><div class="line">    gutil = require(&quot;gulp-util&quot;);</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">var dir = gulp.env.dir ? gulp.env.dir : &quot;common&quot;,</div><div class="line"></div><div class="line">    date = (new Date()).getTime();</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">gulp.task(&quot;default&quot;,function()&#123;</div><div class="line"></div><div class="line">    gutil.log(gutil.colors.bgGreen(&quot;/* ------- 用 法 ------- */&quot;));</div><div class="line"></div><div class="line">    gutil.log(gutil.colors.bgGreen(&quot;拷贝：gulp copy --dir [目录名]&quot;));</div><div class="line"></div><div class="line">    gutil.log(gutil.colors.bgGreen(&quot;压缩：gulp jsmin --dir [目录名] &quot;));</div><div class="line"></div><div class="line">&#125;);</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">gulp.task(&quot;copy&quot;,function()&#123;</div><div class="line"></div><div class="line">    return gulp.src(&quot;src/&quot; + dir + &quot;/*.js&quot;)</div><div class="line"></div><div class="line">    .pipe(header(&quot;/* timeStapmp=&quot;+ date +&quot; */ \r\n&quot;))</div><div class="line"></div><div class="line">    .pipe(gulp.dest(&quot;min/&quot; + dir))</div><div class="line"></div><div class="line">&#125;);</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">gulp.task(&quot;jsmin&quot;,function()&#123;</div><div class="line"></div><div class="line">    return gulp.src(&quot;src/&quot; + dir + &quot;/*.js&quot;)</div><div class="line"></div><div class="line">    .pipe(uglify())</div><div class="line"></div><div class="line">    .pipe(header(&quot;/* timeStapmp=&quot;+ date +&quot; */ \r\n&quot;))</div><div class="line"></div><div class="line">    .pipe(gulp.dest(&quot;min/&quot; + dir))</div><div class="line"></div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>执行：</p>
+<p><img src="http://7xo5yo.com1.z0.glb.clouddn.com/paramter.png" alt="执行结果"></p>
+<p>上例中，定义了两个任务”copy”和“jsmin”，两个任务都能接受一个参数，这个参数指定操作对应的目录。</p>
+<hr>
+<p><strong><em>yargs</em></strong></p>
+<p>命令行用法，不止一种：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gulp --key1=value1 --key2=value2</div></pre></td></tr></table></figure>
+<p>gulpfile.js中接收，使用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">var dir = argv.dir,</div><div class="line">	item = argv.item;</div><div class="line">gulp.task(item,function()&#123;</div><div class="line">    //...</div><div class="line">&#125;);</div><div class="line"></div><div class="line">gulp.task(&quot;dist&quot;,[ item ],function()&#123;</div><div class="line">    gulp.src(&quot;dist/&quot; + dir + &quot;/&quot;+ item +&quot;.js&quot;)</div><div class="line">        .pipe(uglify(&#123;</div><div class="line">            mangle:&#123;</div><div class="line">                except: [&quot;define&quot;,&quot;require&quot;,&quot;exports&quot;,&quot;modules&quot;]</div><div class="line">            &#125;,</div><div class="line">            output: &#123;</div><div class="line">                max_line_len: 100</div><div class="line">            &#125;</div><div class="line">        &#125;))</div><div class="line">        .pipe(gulp.dest(&quot;dist/&quot;+ dir +&quot;/&quot;));</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>从命令行中动态接收dir、item两个参数，然后执行对应构建任务，这样多个模块就可以共用一段代码。</p>
+<h2 id="四、插件"><a href="#四、插件" class="headerlink" title="四、插件"></a>四、插件</h2><p><a href="http://gulpjs.com/plugins/" target="_blank" rel="external">首页</a></p>
+<table>
+<thead>
+<tr>
+<th>常用操作</th>
+<th>插件名称</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>文件合并</td>
+<td>gulp-concat</td>
+</tr>
+<tr>
+<td>文件拷贝</td>
+<td>gulp-copy</td>
+</tr>
+<tr>
+<td>文件替换</td>
+<td>gulp-replace</td>
+</tr>
+<tr>
+<td>JS压缩</td>
+<td>gulp-uglify</td>
+</tr>
+<tr>
+<td>语法检查</td>
+<td>gulp-jshint</td>
+</tr>
+<tr>
+<td>图片压缩</td>
+<td>gulp-imagemin</td>
+</tr>
+<tr>
+<td>CSS压缩</td>
+<td>gulp-cssmin</td>
+</tr>
+<tr>
+<td>添加注释</td>
+<td>gulp-wrapper</td>
+</tr>
+<tr>
+<td>transport格式化</td>
+<td>gulp-seajs-transport</td>
+</tr>
+</tbody>
+</table>
+<h4 id="压缩JS-gulp-uglify"><a href="#压缩JS-gulp-uglify" class="headerlink" title="压缩JS gulp-uglify"></a>压缩JS <a href="https://www.npmjs.com/package/gulp-uglify" target="_blank" rel="external">gulp-uglify</a></h4><p>举个栗子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">var gulp = require(&quot;gulp&quot;),</div><div class="line">    uglify = require(&quot;gulp-uglify&quot;);</div><div class="line">gulp.task(&quot;uglify&quot;,function()&#123;</div><div class="line">    gulp.src([&quot;src/common/*.js&quot;])</div><div class="line">    .pipe(uglify(&#123;</div><div class="line">        mangle: &#123;</div><div class="line">        	except: [&quot;define&quot;,&quot;require&quot;,&quot;module&quot;,&quot;exports&quot;]</div><div class="line">        &#125;,</div><div class="line">        output: &#123;</div><div class="line">                max_line_len: 100        //每行最多100个字符</div><div class="line">        &#125;</div><div class="line">    &#125;))</div><div class="line">    .pipe(gulp.dest(&quot;min/common&quot;))</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>上例中，将src/common/目录下的js进行压缩，压缩文件放到min/common/目录中。参数<strong>mangle</strong>，可以像上例中那样排除一些关键字以适用sea.js模块管理，或者赋值“false”，在压缩过程中跳过函数名使其不被压缩。</p>
+<p>max_line_len参数设置每行允许的最多字符量，不设置这个参数js文件一般被压缩成一行注释，一行代码两行，这样不是挺好，为什么需要这个参数？设置这个参数不会对压缩效率产生太大的影响（当然数值不能太小），但是却能极大方便debug，无论是浏览器还是其他提示工具，错误提示一般都是显示出错的行数，压缩成一行的代码出现提示永远是第一行……设置这个参数就好多了。</p>
+<p><img src="http://7xo5yo.com1.z0.glb.clouddn.com/gulp-mangle.png" alt="mangle"></p>
+<h4 id="合并-gulp-concat"><a href="#合并-gulp-concat" class="headerlink" title="合并 gulp-concat"></a>合并 <a href="https://www.npmjs.com/package/gulp-concat" target="_blank" rel="external">gulp-concat</a></h4><p>例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">var gulp = require(&quot;gulp&quot;),</div><div class="line">    concat = require(&quot;gulp-concat&quot;),</div><div class="line">    uglify = require(&quot;gulp-uglify&quot;);</div><div class="line">gulp.task(&quot;scripts&quot;,function()&#123;</div><div class="line">    gulp.src([&quot;src/common/reqData.js&quot;,&quot;src/common/util.js&quot;])</div><div class="line">    .pipe(uglify())</div><div class="line">    .pipe(concat(&quot;base.min.js&quot;,&#123;</div><div class="line">        newLine: &quot;\r\n\r\n&quot;</div><div class="line">    &#125;))</div><div class="line">    .pipe(gulp.dest(&quot;min/common&quot;))</div><div class="line"></div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>上例中，将src/common/目录下reqData.js和util.js压缩后合并成一个文件base.min.js，参数的作用是在两个文件之间添加两个换行。</p>
+<h2 id="五、Stream"><a href="#五、Stream" class="headerlink" title="五、Stream"></a>五、Stream</h2><p>类似于*nix将几乎所有的设备抽象为文件一样，Node将文件访问、输入输出、http连接等几乎所有I/O都抽象成了Stream。</p>
+<h5 id="Linux中管道的概念"><a href="#Linux中管道的概念" class="headerlink" title="Linux中管道的概念"></a>Linux中管道的概念</h5><p><img src="http://7xo5yo.com1.z0.glb.clouddn.com/linux-pipe.png" alt="管道命令的处理示意图"></p>
+<p>通过管道将stdout导入到stdin。command1的正确输出（stand output）作为command2的输入，然后command2的输出作为command3的输入，command1、2的输出不会显示，command3的运行结果会输出。</p>
+<p>可以类比理解。shell中的“|”符号和gulp中的pipe()方法作用相同。</p>
+<p><img src="http://7xo5yo.com1.z0.glb.clouddn.com/gulp.png" alt="gulp翻译"></p>
+<h2 id="六、与Grunt比较"><a href="#六、与Grunt比较" class="headerlink" title="六、与Grunt比较"></a>六、与Grunt比较</h2><p><img src="http://7xo5yo.com1.z0.glb.clouddn.com/gulp-vs-grunt.jpg" alt="与Grunt对比"></p>
+<p>比Grunt配置少配置简单、运行速度快</p>
+<ul>
+<li>不生成中间文件</li>
+</ul>
+<p>Gulp基于node.js的Stream机制。每个插件不能单独使用，依靠组合发挥作用，就像一条流水线，上一道工序的产出交给下一道工序，效率高。</p>
+<p>Grunt基于文件，很多操作都要需要生成一些中间文件，这些文件在任务完成后就没用了，需要删掉。文件操作时间消耗多，还有无用文件产生。gulp配置代码量相应的也会少。</p>
+<ul>
+<li>配置和运行在一起</li>
+</ul>
+<p>变量的声明和使用挨在一起最方便。但是Gruntfile中，配置task和调用一般都离得很远，尤其是配置文件比较大的时候。</p>
+<ul>
+<li>插件配置语法基本相同</li>
+</ul>
+<p>Grunt的很多插件的配置规则有一定差别，有的看起来还有些怪异。Gulp插件配置规则基本都一样。（插件方法调用，第一个参数是文件，第二个是配置json。）</p>
+<ul>
+<li>每个插件只专注于做一件事情</li>
+</ul>
+<p>Gulp中每个插件单一职责，每个插件的配置就比较简单。</p>
+<p>Grunt中每个插件要配置一坨。</p>
+<h2 id="七、实践对比"><a href="#七、实践对比" class="headerlink" title="七、实践对比"></a>七、实践对比</h2><p>配置文件Gruntfile.js</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div></pre></td><td class="code"><pre><div class="line">module.exports = function(grunt) &#123;</div><div class="line">    grunt.initConfig(&#123;</div><div class="line">        pkg:grunt.file.readJSON(&quot;package.json&quot;),</div><div class="line">        // 文件合并</div><div class="line">        concat:&#123;</div><div class="line">            options:&#123;</div><div class="line">                separator:&quot;\n&quot;,</div><div class="line">                stripBanners:true</div><div class="line">            &#125;,</div><div class="line"></div><div class="line">            combine:&#123;</div><div class="line">                files:[</div><div class="line">                    &#123;</div><div class="line">                        src:[&quot;src/lib/*.js&quot;],   // 合并库文件</div><div class="line">                        dest:&quot;build/lib.js&quot;</div><div class="line">                    &#125;,</div><div class="line">                    &#123;</div><div class="line">                        src:[&quot;src/combine/shake.common.js&quot;,&quot;src/combine/shake.data.js&quot;,&quot;src/combine/shake.list.js&quot;,&quot;src/combine/shake.share.js&quot;,&quot;src/combine/shake.card.js&quot;,&quot;src/combine/shake.detail.js&quot;],        // 合并业务代码</div><div class="line">                        dest:&quot;build/business.js&quot;</div><div class="line">                    &#125;,&#123;</div><div class="line">                        src:[&quot;src/combine/shake.config.js&quot;],   // 合并库文件</div><div class="line">                        dest:&quot;build/config.js&quot;</div><div class="line">                    &#125;</div><div class="line">                ]</div><div class="line">            &#125;</div><div class="line">        &#125;,</div><div class="line"></div><div class="line">        uglify:&#123;</div><div class="line">            lib:&#123;</div><div class="line">                src:[&quot;build/lib.js&quot;],</div><div class="line">                dest:&quot;min/&lt;%=pkg.version %&gt;/card.lib.min.js&quot;</div><div class="line">            &#125;,</div><div class="line"></div><div class="line">            business:&#123;</div><div class="line">                src:[&quot;build/business.js&quot;],</div><div class="line">                dest:&quot;min/&lt;%=pkg.version %&gt;/card.min.js&quot;</div><div class="line">            &#125;,</div><div class="line"></div><div class="line">            config:&#123;</div><div class="line">                src:[&quot;build/config.js&quot;],</div><div class="line">                dest:&quot;min/&lt;%=pkg.version %&gt;/card.config.min.&lt;%=pkg.date %&gt;.js&quot;</div><div class="line">            &#125;</div><div class="line">        &#125;,</div><div class="line">        clean:[&quot;build&quot;]</div><div class="line">    &#125;);</div><div class="line">    </div><div class="line">    grunt.loadNpmTasks(&apos;grunt-contrib-uglify&apos;);</div><div class="line">    grunt.loadNpmTasks(&apos;grunt-contrib-clean&apos;);</div><div class="line">    grunt.loadNpmTasks(&apos;grunt-contrib-concat&apos;);</div><div class="line">    grunt.registerTask(&apos;default&apos;, [&apos;concat&apos;, &apos;uglify&apos;,&apos;clean&apos;]);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>完成相同功能的，gulpfile.js </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">var gulp = require(&quot;gulp&quot;),</div><div class="line">	concat = require(&quot;gulp-concat&quot;),</div><div class="line">	uglify = require(&quot;gulp-uglify&quot;),</div><div class="line">	pkg = require(&quot;./package.json&quot;);</div><div class="line"></div><div class="line">gulp.task(&quot;lib&quot;,function()&#123;</div><div class="line">	return gulp.src([&quot;src/lib/*.js&quot;])</div><div class="line">	.pipe(concat(&quot;card.lib.min.js&quot;,&#123;newLine: &quot;\n&quot;&#125;))</div><div class="line">	.pipe(uglify())</div><div class="line">	.pipe(gulp.dest(&quot;min/&quot; + pkg.version))</div><div class="line">&#125;);</div><div class="line"></div><div class="line">gulp.task(&quot;business&quot;,function()&#123;</div><div class="line">	return gulp.src([&quot;src/combine/*.js&quot;,&quot;!src/combine/shake.config.js&quot;])</div><div class="line">	.pipe(concat(&quot;card.min.js&quot;,&#123;newLine: &quot;\n&quot;&#125;))</div><div class="line">	.pipe(uglify())</div><div class="line">	.pipe(gulp.dest(&quot;min/&quot; + pkg.version))</div><div class="line">&#125;);</div><div class="line"></div><div class="line">gulp.task(&quot;config&quot;,function()&#123;</div><div class="line">	return gulp.src([&quot;src/combine/shake.config.js&quot;])</div><div class="line">	.pipe(concat(&quot;card.config.min.&quot; + pkg.date + &quot;.js&quot;,&#123;newLine: &quot;\n&quot;&#125;))</div><div class="line">	.pipe(uglify())</div><div class="line">	.pipe(gulp.dest(&quot;min/&quot; + pkg.version))</div><div class="line">&#125;);</div><div class="line"></div><div class="line">gulp.task(&quot;default&quot;,[&quot;lib&quot;,&quot;business&quot;,&quot;config&quot;]);</div></pre></td></tr></table></figure>
+<h3 id="八、参考"><a href="#八、参考" class="headerlink" title="八、参考"></a>八、参考</h3><p><a href="http://www.w3ctech.com/topic/134" target="_blank" rel="external">Gulp开发教程</a></p>
+<p><a href="http://colobu.com/2014/11/17/gulp-plugins-introduction/" target="_blank" rel="external">gulp plugin 插件介绍</a></p>
+<p><a href="http://segmentfault.com/a/1190000000357044" target="_blank" rel="external">Node中的流</a></p>
+<p><a href="http://linux.vbird.org/linux_basic/0320bash.php#pipe" target="_blank" rel="external">鸟哥 管道命令</a></p>
+<p><a href="http://www.jianshu.com/p/3779f708f5d7" target="_blank" rel="external">Gulp挑战Grunt背后的哲学</a></p>
+<p><a href="http://yijiebuyi.com/blog/d64c5d28eb539941bf3b855d333850cc.html" target="_blank" rel="external">gulp传参数 实现定制化执行任务</a></p>
+<p><a href="https://www.npmjs.com/package/yargs" target="_blank" rel="external">npm yargs</a></p>
+<p><a href="http://stackoverflow.com/questions/23023650/is-it-possible-to-pass-a-flag-to-gulp-to-have-it-run-tasks-in-different-ways" target="_blank" rel="external">pass a flag to gulp to have it run tasks in different ways</a></p>
+</div><!-- comment system--><div class="container"><hr></div></article><footer id="footer"><div class="container"><div class="bar"><div class="social"><a href="https://github.com/http://suibobuzhuliu.github.io" target="_blank"><i class="fa fa-github"></i></a><a href="/atom.xml" target="_blank"><i class="fa fa-rss"></i></a></div><div class="footer">© 2016 <a href="/" rel="nofollow">波仔</a>. Powered by <a rel="nofollow" target="_blank" href="https://hexo.io">Hexo</a>. Theme <a target="_blank" href="https://github.com/lotabout/very-simple">very-simple</a>.</div></div></div></footer><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.css"><script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script><script src="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.pack.js"></script><script>$(document).ready(function() {
+    $(".fancybox").fancybox();
+});
+</script></body></html>

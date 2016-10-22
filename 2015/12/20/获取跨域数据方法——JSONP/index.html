@@ -1,0 +1,69 @@
+<!DOCTYPE html><html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><title>获取跨域数据方法——JSONP | 随啵不逐流</title><link rel="stylesheet" type="text/css" href="/css/normalize.css"><link rel="stylesheet" type="text/css" href="/css/highlight.css"><link rel="stylesheet" type="text/css" href="/css/very-simple.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="alternate" type="application/atom+xml" href="/atom.xml"></head><body><!-- include the sidebar--><!-- include ./includes/sidebar.jade--><!-- Blog title and subtitle--><header><div class="container header"><a id="logo" href="/." class="title">随啵不逐流</a><span class="subtitle">路过了青春我们还拥有什么</span><label id="toggle-menu" for="menu" onclick><i class="fa fa-bars"></i></label></div></header><!-- use checkbox hack for toggle nav-bar on small screens--><input id="menu" type="checkbox"><!-- Navigation Links--><nav id="nav"><div class="container"><a href="/" class="sidebar-nav-item active">Home</a><a href="/archives" class="sidebar-nav-item">Archives</a><a href="/about/" class="sidebar-nav-item">About</a></div></nav><div id="header-margin-bar"></div><!-- gallery that comes before the header--><div class="wrapper"><div class="container post-header"><h1>获取跨域数据方法——JSONP</h1></div></div><div class="wrapper"><div class="container meta"><div class="post-time">2015-12-20</div><div class="post-tags"><a class="post-tag-link" href="/tags/AJAX/">AJAX</a>/<a class="post-tag-link" href="/tags/JSONP/">JSONP</a>/<a class="post-tag-link" href="/tags/同源策略/">同源策略</a>/<a class="post-tag-link" href="/tags/跨域/">跨域</a></div></div></div><article><div class="container post"><p>jsonp是跨域解决方案之一，要了解jsonp，肯定要从浏览器安全和 <em>同源策略</em> 说起。</p>
+<p>同源策略（Same Origin Policy）是一种约定规范，是浏览器最基本最核心的安全功能。<br><a id="more"></a></p>
+<h2 id="同源策略"><a href="#同源策略" class="headerlink" title="同源策略"></a>同源策略</h2><p>jsonp是跨域解决方案之一，要了解jsonp，肯定要从浏览器安全和 <em>同源策略</em> 说起。</p>
+<p>同源策略（Same Origin Policy）是一种约定规范，是浏览器最基本最核心的安全功能。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">同源策略限制了一个源（origin）中加载文本或脚本与其它源（origin）中资源的交互方式。</div></pre></td></tr></table></figure>
+<p>###同源策略大致包含以下方面：</p>
+<p>####1. 源的定义，DOM层面的约束</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">如果两个页面拥有相同的协议（protocol），端口，和主机，那么这两个页面就属于同一个源（origin）。</div></pre></td></tr></table></figure>
+<p>不同源的页面会加载失败。对于一个页面，页面内存放的JavaScript文件的域并不重要，重要的是加载JavaScript的页面所在的域是什么。（js是静态资源，它的引入加载不受同源策略约束，参考下面一段）</p>
+<p>例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">a.com/hello.html中的一行代码：</div><div class="line">&lt;script src=&quot;http://b.com/b.js&quot;&gt;&lt;/script&gt;</div></pre></td></tr></table></figure>
+<p>a.com下的helloe.html加载了b.com上的b.js，但是b.js是在a.com页面中，b.js的Origin就是a.com而不是b.com。</p>
+<p>####2. 跨域访问，静态资源层面的约束</p>
+<ul>
+<li>允许跨域写操作。例如表单提交</li>
+<li>允许跨域资源嵌入。</li>
+<li>不允许跨域读操作。例如，XMLHttpRequest对象（Ajax操作）不能访问跨域资源。可以通过内嵌资源来进行读取，这也是JSONP跨域技术的由来。</li>
+</ul>
+<p><strong>可以进行跨域资源嵌入的内容：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;、&lt;link&gt;、&lt;img&gt;、&lt;video&gt;、&lt;audio&gt;、&lt;iframe&gt;、&lt;frame&gt;这些带“src”或“href”属性的标签都可以跨域加载资源，而不受同源策略的限制。</div></pre></td></tr></table></figure>
+<p>####3. XMLHttpRequest跨域访问规范</p>
+<p>XMLHttpRequest通过目标域返回的HTTP头来授权是否允许跨域访问，因为<strong>HTTP头对于js来说是无法控制的</strong>，这是这个跨域方案的信任基础。</p>
+<p>如果目标域HTTP头返回<strong>Access-Control-Allow-Origin</strong>，就是允许跨域访问。</p>
+<p>##JSONP原理</p>
+<h4 id="JSON和JSONP的关系"><a href="#JSON和JSONP的关系" class="headerlink" title="JSON和JSONP的关系"></a>JSON和JSONP的关系</h4><p>JSON(JavaScript Object Notation)是一种轻量级的数据交换格式，用于在浏览器和服务器之间交换信息。</p>
+<p>JSONP(JSON With Padding)打包在函数调用中的JSON，或者叫包裹的JSON。</p>
+<p><strong>JSON是一种数据格式，JSONP是一种数据调用方式。</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">//JSON</div><div class="line">&#123;</div><div class="line">	&quot;name&quot;: &quot;bobo&quot;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//JSONP</div><div class="line">callback(&#123;</div><div class="line">	&quot;name&quot;: &quot;bobo&quot;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>通常非跨域情况下，一个web应用获取数据并使用的例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&lt;script type=&quot;text/javascript&quot;&gt;</div><div class="line">//ajax获取数据</div><div class="line">var xhr = new XMLHttpRequest();</div><div class="line">xhr.open(&quot;GET&quot;,&quot;http://.../remote.json&quot;);</div><div class="line">xhr.readystatechange = function()&#123;</div><div class="line">	if(xhr.readyState == 4 &amp;&amp; xhr.status == 200)&#123;</div><div class="line">		showInfo(JSON.parse(responseText));</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//业务函数</div><div class="line">function showInfo(data)&#123;</div><div class="line">	alert(&quot;name: &quot; + data.name + &quot;,age: &quot; + data.age);</div><div class="line">&#125;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
+<p>面对跨域的资源，利用静态资源加载不受同源策略限制，前端和后端就CGI约定一个回调函数的参数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">//业务函数</div><div class="line">function showInfo(data)&#123;</div><div class="line">	alert(&quot;name: &quot; + data.name + &quot;,age: &quot; + data.age);</div><div class="line">&#125;</div><div class="line"></div><div class="line">// 动态插入脚本</div><div class="line">var script = document.createElement(&apos;script&apos;);</div><div class="line">script.setAttribute(&apos;src&apos;, &quot;http://.../remote.json?callback=showInfo&quot;); </div><div class="line">document.getElementsByTagName(&apos;head&apos;)[0].appendChild(script);</div><div class="line"></div><div class="line">//remote.json的内容是</div><div class="line">showInfo(&#123;&quot;name&quot;:&quot;bobo&quot;,&quot;age&quot;:&quot;17&quot;&#125;);</div></pre></td></tr></table></figure>
+<p>等价于：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&lt;script type=&quot;text/javascript&quot;&gt;</div><div class="line">	function showInfo(data)&#123;</div><div class="line">		//	</div><div class="line">	&#125;</div><div class="line">&lt;/script&gt;</div><div class="line">&lt;script type=&quot;text/javascript&quot;&gt;</div><div class="line">	showInfo(&#123;&quot;name&quot;:&quot;bobo&quot;,&quot;age&quot;:&quot;17&quot;&#125;)</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
+<p>这就是JSONP获取跨域数据的方式，通过<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">虽然jQuery、zepto等库的API中使用JSONP跨域获取数据只是在$.ajax()中增添改变几个参数，它们的使用方式看起来极为相像，但是**JSONP并不是AJAX**，它们两个是获取数据的完全不同的两种实现方式。</div><div class="line"></div><div class="line">jQuery、zepto中封装的jsonp的实现方式大致是：</div></pre></td></tr></table></figure></p>
+<p>$.ajax = function(settings){</p>
+<pre><code>//...
+
+if(&quot;jsonp&quot; == settings.dataType){
+    $.ajaxJSONP(settings);
+}
+</code></pre><p>}</p>
+<p>$.ajaxJSONP = function(options){<br>    var script = document.createElement(“script”);</p>
+<pre><code>$(script).on(&quot;load&quot;,function(e){
+    $(script).off().remove()//加载成功后，删除动态增加的&lt;script&gt;标签
+
+    ajaxSuccess(responseData[0],xhr,options);
+});
+
+window[callbackName] = function(){
+    responseData = arguments;
+}
+
+script.src = &quot;http://...&quot;;
+document.head.appendChild(script)
+</code></pre><p>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">在jQuery和zepto中使用JSONP：</div></pre></td></tr></table></figure></p>
+<p>$.ajax({<br>                url: “http://…”,<br>                dataType: “jsonp”,<br>                jsonp: “callback”,<br>                success: function(json){<br>                    //…<br>                    }<br>                },<br>                error: function(){<br>                        //…<br>                }<br>            })<br>```</p>
+<p>##参考</p>
+<ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/Security/Same-origin_policy" target="_blank" rel="external">JavaScript的同源策略|MDN</a></li>
+<li><a href="http://changsiyuan.github.io/2015/10/30/cross-domain/" target="_blank" rel="external">同源策略详解</a></li>
+<li><a href="http://www.html-js.com/article/1882" target="_blank" rel="external">原生JS实现AJAX、JSONP及DOM加载完成事件</a></li>
+<li><a href="http://www.cnblogs.com/kaixinbocai/p/4109223.html" target="_blank" rel="external">JSONP原理</a></li>
+<li>《白帽子讲web安全》</li>
+</ul>
+</div><!-- comment system--><div class="container"><hr></div></article><footer id="footer"><div class="container"><div class="bar"><div class="social"><a href="https://github.com/http://suibobuzhuliu.github.io" target="_blank"><i class="fa fa-github"></i></a><a href="/atom.xml" target="_blank"><i class="fa fa-rss"></i></a></div><div class="footer">© 2016 <a href="/" rel="nofollow">波仔</a>. Powered by <a rel="nofollow" target="_blank" href="https://hexo.io">Hexo</a>. Theme <a target="_blank" href="https://github.com/lotabout/very-simple">very-simple</a>.</div></div></div></footer><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.css"><script src="//cdn.bootcss.com/jquery/2.0.3/jquery.min.js"></script><script src="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.pack.js"></script><script>$(document).ready(function() {
+    $(".fancybox").fancybox();
+});
+</script></body></html>
